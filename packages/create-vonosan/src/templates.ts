@@ -58,7 +58,11 @@ export function generateTemplates(answers: WizardAnswers): Record<string, string
   const needsNativeWs = websocketDriver === 'native'
   const isBunRuntimeTarget = deploymentTarget === 'bun' || deploymentTarget === 'bun-docker'
   const isNodeRuntimeTarget = deploymentTarget === 'nodejs' || deploymentTarget === 'nodejs-docker'
+  const isCloudflareRuntimeTarget =
+    deploymentTarget === 'cloudflare-workers' || deploymentTarget === 'cloudflare-pages'
+  const isDenoRuntimeTarget = deploymentTarget === 'deno'
   const needsSocketIoBunEngine = needsSocketIo && isBunRuntimeTarget
+  const needsNodeWebSocketAdapter = needsNativeWs && isNodeRuntimeTarget
   const rootServerEntry = needsSocketIo && isBunRuntimeTarget
     ? `${h}
 
@@ -105,6 +109,48 @@ const httpServer = serve({
 })
 
 attachSocketIOServer(httpServer as unknown as HTTPServer)
+
+export default app
+`
+      : needsNativeWs && isBunRuntimeTarget
+        ? `${h}
+
+import app from './src/app.js'
+import { websocket } from './src/shared/ws/native.server.js'
+
+const port = Number(process.env.PORT ?? 4000)
+
+const bunRef = (globalThis as { Bun?: { serve?: (options: unknown) => unknown } }).Bun
+
+if (typeof bunRef?.serve !== 'function') {
+  throw new Error('Native WebSocket with Bun target requires Bun runtime.')
+}
+
+bunRef.serve({
+  port,
+  fetch: app.fetch,
+  websocket,
+})
+
+export default app
+`
+        : needsNativeWs && isNodeRuntimeTarget
+          ? `${h}
+
+import app from './src/app.js'
+import { attachNodeWebSocketServer } from './src/shared/ws/native.server.js'
+import type { Server as HTTPServer } from 'node:http'
+
+const port = Number(process.env.PORT ?? 4000)
+
+const { serve } = await import('@hono/node-server')
+
+const httpServer = serve({
+  port,
+  fetch: app.fetch,
+})
+
+attachNodeWebSocketServer(httpServer as unknown as HTTPServer)
 
 export default app
 `
@@ -322,12 +368,17 @@ export function createApp() {
 
 import { createVonosanApp } from 'vonosan/server'
 import config from '../vonosan.config.js'
+${needsNativeWs ? "import { registerNativeWebSocketRoutes } from './shared/ws/native.server.js'" : ''}
+${websocketDriver === 'cloudflare-websocket' ? "import { registerCloudflareWebSocketRoutes } from './shared/ws/cloudflare.server.js'" : ''}
 ${apiDocs ? "import openApiSpec from './openapi.js'" : ''}
 
 const app = createVonosanApp({
   config,
   ${apiDocs ? 'openApiSpec,' : ''}
 })
+
+${needsNativeWs ? 'registerNativeWebSocketRoutes(app)' : ''}
+${websocketDriver === 'cloudflare-websocket' ? 'registerCloudflareWebSocketRoutes(app)' : ''}
 
 export default app
 `,
@@ -569,13 +620,93 @@ export function attachSocketIOServer(httpServer: HTTPServer) {
 
     ...(websocketDriver === 'native'
       ? {
-          'src/shared/ws/native.server.ts': `${h}
+          'src/shared/ws/native.server.ts': isNodeRuntimeTarget
+            ? `${h}
 
-import { WebSocketServer } from 'ws'
+import { createNodeWebSocket } from '@hono/node-ws'
+import type { Hono } from 'hono'
+import type { Server as HTTPServer } from 'node:http'
 
-export function createNativeWebSocketServer(port = Number(process.env.PORT ?? 4000)) {
-  return new WebSocketServer({ port })
+let injectNodeWebSocket: ((server: HTTPServer) => void) | null = null
+
+export function registerNativeWebSocketRoutes(app: Hono) {
+  const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app })
+  injectNodeWebSocket = injectWebSocket as (server: HTTPServer) => void
+
+  app.get(
+    '/ws',
+    upgradeWebSocket(() => ({
+      onMessage(event, ws) {
+        ws.send(String(event.data))
+      },
+    })),
+  )
 }
+
+export function attachNodeWebSocketServer(server: HTTPServer) {
+  injectNodeWebSocket?.(server)
+}
+`
+            : isBunRuntimeTarget
+              ? `${h}
+
+import { upgradeWebSocket, websocket } from 'hono/bun'
+import type { Hono } from 'hono'
+
+export { websocket }
+
+export function registerNativeWebSocketRoutes(app: Hono) {
+  app.get(
+    '/ws',
+    upgradeWebSocket(() => ({
+      onMessage(event, ws) {
+        ws.send(String(event.data))
+      },
+    })),
+  )
+}
+`
+              : isCloudflareRuntimeTarget
+                ? `${h}
+
+import { upgradeWebSocket } from 'hono/cloudflare-workers'
+import type { Hono } from 'hono'
+
+export function registerNativeWebSocketRoutes(app: Hono) {
+  app.get(
+    '/ws',
+    upgradeWebSocket(() => ({
+      onMessage(event, ws) {
+        ws.send(String(event.data))
+      },
+    })),
+  )
+}
+`
+                : isDenoRuntimeTarget
+                  ? `${h}
+
+import { upgradeWebSocket } from 'hono/deno'
+import type { Hono } from 'hono'
+
+export function registerNativeWebSocketRoutes(app: Hono) {
+  app.get(
+    '/ws',
+    upgradeWebSocket(() => ({
+      onMessage(event, ws) {
+        ws.send(String(event.data))
+      },
+    })),
+  )
+}
+`
+                  : `${h}
+
+/**
+ * Native WebSocket scaffold placeholder.
+ * For target "${deploymentTarget}", check Hono adapter docs for websocket helper support.
+ */
+export function registerNativeWebSocketRoutes() {}
 `,
         }
       : {}),
@@ -584,11 +715,19 @@ export function createNativeWebSocketServer(port = Number(process.env.PORT ?? 40
       ? {
           'src/shared/ws/cloudflare.server.ts': `${h}
 
-/**
- * Cloudflare WebSocket scaffold placeholder.
- * Implement with Hono upgradeWebSocket helper in Workers runtime.
- */
-export const cloudflareWebSocketEnabled = true
+import { upgradeWebSocket } from 'hono/cloudflare-workers'
+import type { Hono } from 'hono'
+
+export function registerCloudflareWebSocketRoutes(app: Hono) {
+  app.get(
+    '/ws',
+    upgradeWebSocket(() => ({
+      onMessage(event, ws) {
+        ws.send(String(event.data))
+      },
+    })),
+  )
+}
 `,
         }
       : {}),
@@ -716,7 +855,7 @@ export {}
               }
             : {}),
           ...(needsSocketIoBunEngine ? { '@socket.io/bun-engine': 'latest' } : {}),
-          ...(needsNativeWs ? { ws: 'latest' } : {}),
+          ...(needsNodeWebSocketAdapter ? { '@hono/node-ws': 'latest' } : {}),
           zod: 'latest',
         },
         devDependencies: {
