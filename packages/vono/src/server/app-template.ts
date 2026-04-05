@@ -21,17 +21,10 @@ import type { VonoConfig, AppVariables, Env } from '../types/index.js'
 // ─── Types ──────────────────────────────────────────────────────────
 
 export interface VonoAppOptions {
-  /**
-   * The resolved vono.config.ts object.
-   * Pass the result of defineVonoConfig() here.
-   */
   config: VonoConfig
-
-  /**
-   * Optional OpenAPI spec object.
-   * If provided, GET /openapi.json will serve it.
-   */
   openApiSpec?: Record<string, unknown>
+  /** Pass import.meta.glob('/src/modules/*\/*.routes.ts', { eager: true }) here */
+  modules?: Record<string, { default?: unknown }>
 }
 
 // ─── Factory ────────────────────────────────────────────────────────

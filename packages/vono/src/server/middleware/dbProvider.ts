@@ -12,17 +12,39 @@ import { createMiddleware } from 'hono/factory'
 import type { AppVariables, Env } from '../../types/index.js'
 import { Logger } from '../../shared/utils/logger.js'
 
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+export interface DbFactory {
+  createDb: (connectionString: string) => Promise<{
+    db: unknown
+    client: { end?: () => Promise<void> }
+  }>
+}
+
+// Module-level factory — set once at startup by the consuming project
+let _dbFactory: DbFactory | null = null
+
+/**
+ * Register the project's createDb factory.
+ * Call this in your src/index.ts before starting the server:
+ *
+ * ```ts
+ * import { registerDbFactory } from 'vono/server'
+ * import { createDb } from './db/index.js'
+ * registerDbFactory({ createDb })
+ * ```
+ */
+export function registerDbFactory(factory: DbFactory): void {
+  _dbFactory = factory
+}
+
 /**
  * DB provider middleware.
  *
- * Creates a Drizzle client per request (or uses a shared pool for Node/Bun),
- * sets c.var.db, and always closes the connection in a finally block.
+ * Creates a Drizzle client per request, sets c.var.db, and always
+ * closes the connection in a finally block.
  *
- * The actual createDb factory is resolved at runtime from the project's
- * src/db/index.ts — this middleware is runtime-agnostic.
- *
- * Apply once on the inner API router:
- *   api.use('*', dbProvider)
+ * Requires registerDbFactory() to be called at startup.
  */
 export const dbProvider = createMiddleware<{
   Variables: AppVariables
@@ -31,9 +53,6 @@ export const dbProvider = createMiddleware<{
   const config = c.get('config')
   const env = c.env as Env
 
-  // Resolve connection string:
-  // - Cloudflare Workers: use Hyperdrive binding
-  // - Node/Bun: use DATABASE_URL from config
   const connectionString =
     env?.HYPERDRIVE?.connectionString ?? config?.DATABASE_URL ?? ''
 
@@ -44,29 +63,21 @@ export const dbProvider = createMiddleware<{
     )
   }
 
-  // Dynamically import createDb from the project's db module.
-  // This allows the project to swap the DB driver without changing framework code.
-  let db: unknown
+  if (!_dbFactory) {
+    throw new Error(
+      '[vono] dbProvider: No DB factory registered. ' +
+      'Call registerDbFactory({ createDb }) in your src/index.ts.',
+    )
+  }
+
   let client: { end?: () => Promise<void> } | null = null
 
   try {
-    // Try to import the project's createDb factory
-    const dbModule = await import('/src/db/index.js').catch(() => null)
-
-    if (dbModule?.createDb) {
-      const result = await dbModule.createDb(connectionString)
-      db = result.db
-      client = result.client
-    } else {
-      // Fallback: set db to null — project must handle this
-      Logger.warn('[vono] dbProvider: Could not load src/db/index.js. DB will be null.')
-      db = null
-    }
-
-    c.set('db', db)
+    const result = await _dbFactory.createDb(connectionString)
+    client = result.client
+    c.set('db', result.db)
     await next()
   } finally {
-    // Always close the connection after the request
     if (client?.end) {
       await client.end().catch((err: unknown) => {
         Logger.error('[vono] dbProvider: Error closing DB connection', {

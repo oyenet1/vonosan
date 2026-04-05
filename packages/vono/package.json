@@ -1,8 +1,17 @@
 {
-  "name": "vono",
+  "name": "@fade_networker/vono",
   "version": "0.1.0",
   "type": "module",
   "description": "Vono core runtime — config, composables, SSR helpers, Vite plugin",
+  "license": "MIT",
+  "author": "Bowofade Oyerinde",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyenet1/vono.git",
+    "directory": "packages/vono"
+  },
+  "homepage": "https://github.com/oyenet1/vono#readme",
+  "keywords": ["vono", "vue", "vite", "ssr", "framework", "hono", "fullstack"],
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -27,7 +36,11 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "!dist/__tests__",
+    "!dist/**/__tests__"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch"
@@ -40,6 +53,13 @@
     "vue": ">=3.5.0",
     "vue-router": ">=5.0.0",
     "zod": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@unhead/vue": { "optional": true },
+    "drizzle-orm": { "optional": true },
+    "hono": { "optional": true },
+    "pinia": { "optional": true },
+    "zod": { "optional": true }
   },
   "devDependencies": {
     "@types/bun": "1.2.14",

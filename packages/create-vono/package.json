@@ -1,8 +1,17 @@
 {
-  "name": "create-vono",
+  "name": "create-vonosan",
   "version": "0.1.0",
   "type": "module",
   "description": "Create a new Vono project",
+  "license": "MIT",
+  "author": "Bowofade Oyerinde",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyenet1/vono.git",
+    "directory": "packages/create-vono"
+  },
+  "homepage": "https://github.com/oyenet1/vono#readme",
+  "keywords": ["vono", "vue", "vite", "ssr", "create", "scaffold", "cli"],
   "bin": {
     "create-vono": "./dist/index.js"
   },

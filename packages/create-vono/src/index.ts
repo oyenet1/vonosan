@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * ──────────────────────────────────────────────────────────────────
  * 🏢 Company Name: Bonifade Technologies
@@ -7,8 +9,6 @@
  * 🔄 Updated Date: 2026-04-05
  * ──────────────────────────────────────────────────────────────────
  */
-
-#!/usr/bin/env node
 
 import { execa } from 'execa'
 import { runWizard } from './wizard.js'
