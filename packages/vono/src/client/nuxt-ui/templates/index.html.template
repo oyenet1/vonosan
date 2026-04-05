@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{appName}}</title>
+  </head>
+  <body class="h-full">
+    <!--
+      #app must have class="isolate" for Nuxt UI's Tailwind CSS layers
+      to work correctly without leaking styles into the host page.
+    -->
+    <div id="app" class="isolate"><!--ssr-outlet--></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

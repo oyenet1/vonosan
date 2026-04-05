@@ -1,0 +1,33 @@
+{
+  "name": "@vono/auth",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Vono authentication module — JWT, OAuth, magic link, pages, composables",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch"
+  },
+  "peerDependencies": {
+    "hono": ">=4.0.0",
+    "drizzle-orm": ">=0.30.0",
+    "zod": ">=4.0.0",
+    "vono": ">=0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/bun": "latest",
+    "hono": "latest",
+    "drizzle-orm": "latest",
+    "zod": "latest",
+    "vono": "workspace:*"
+  }
+}

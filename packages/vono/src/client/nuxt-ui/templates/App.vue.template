@@ -1,0 +1,18 @@
+<!--
+  ──────────────────────────────────────────────────────────────────
+  🏢 Company Name: Bonifade Technologies
+  👨‍💻 Developer: Bowofade Oyerinde
+  🐙 GitHub: oyenet1
+  📅 Created Date: {{date}}
+  🔄 Updated Date: {{date}}
+  ──────────────────────────────────────────────────────────────────
+-->
+
+<!--
+  Root App Component — wraps all pages in <UApp> for Nuxt UI theming.
+-->
+<template>
+  <UApp>
+    <RouterView />
+  </UApp>
+</template>

@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/vono" },
+    { "path": "./packages/create-vono" },
+    { "path": "./packages/cli" },
+    { "path": "./packages/drizzle" },
+    { "path": "./packages/auth" },
+    { "path": "./packages/notifications" },
+    { "path": "./packages/logging" },
+    { "path": "./packages/ws" }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "vono-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "bun run --filter='*' build",
+    "dev": "bun run --filter='*' dev",
+    "test": "bun test",
+    "lint": "bun run --filter='*' lint",
+    "clean": "rm -rf packages/*/dist packages/*/node_modules node_modules"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/bun": "latest",
+    "fast-check": "latest"
+  }
+}

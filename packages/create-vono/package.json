@@ -1,0 +1,25 @@
+{
+  "name": "create-vono",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Create a new Vono project",
+  "bin": {
+    "create-vono": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch"
+  },
+  "dependencies": {
+    "@clack/prompts": "latest",
+    "giget": "latest",
+    "kolorist": "latest",
+    "execa": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/bun": "latest"
+  }
+}

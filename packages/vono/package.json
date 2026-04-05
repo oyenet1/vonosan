@@ -1,0 +1,56 @@
+{
+  "name": "vono",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Vono core runtime — config, composables, SSR helpers, Vite plugin",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./vite": {
+      "import": "./dist/vite/index.js",
+      "types": "./dist/vite/index.d.ts"
+    },
+    "./server": {
+      "import": "./dist/server/index.js",
+      "types": "./dist/server/index.d.ts"
+    },
+    "./client": {
+      "import": "./dist/client/index.js",
+      "types": "./dist/client/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch"
+  },
+  "peerDependencies": {
+    "hono": ">=4.0.0",
+    "vue": ">=3.5.0",
+    "vue-router": ">=5.0.0",
+    "pinia": ">=3.0.0",
+    "@unhead/vue": ">=2.0.0",
+    "drizzle-orm": ">=0.30.0",
+    "zod": ">=4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/bun": "latest",
+    "hono": "latest",
+    "vue": "latest",
+    "vue-router": "latest",
+    "pinia": "latest",
+    "@unhead/vue": "latest",
+    "@unhead/ssr": "latest",
+    "drizzle-orm": "latest",
+    "zod": "latest"
+  }
+}

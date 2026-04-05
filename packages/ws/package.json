@@ -1,0 +1,29 @@
+{
+  "name": "@vono/ws",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Vono WebSocket module — adapter-based (native, socket.io, CF)",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch"
+  },
+  "peerDependencies": {
+    "hono": ">=4.0.0",
+    "vono": ">=0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/bun": "latest",
+    "hono": "latest",
+    "vono": "workspace:*"
+  }
+}
