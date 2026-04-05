@@ -47,6 +47,18 @@ If no name is provided, the wizard prompts for a project name.
   - Socket.IO
   - Cloudflare WebSocket (only shown for Cloudflare deployment targets)
 
+## Native WebSocket Runtime Notes
+
+When `Native WebSocket` is selected, generated projects use official Hono runtime adapters:
+
+- Bun: `hono/bun` (`upgradeWebSocket`, `websocket`)
+- Node.js: `@hono/node-ws` + `@hono/node-server`
+- Cloudflare Workers/Pages: `hono/cloudflare-workers`
+- Deno: `hono/deno`
+
+When `Cloudflare WebSocket` is selected, generated projects scaffold
+`upgradeWebSocket` routes via `hono/cloudflare-workers`.
+
 ## Docker Scaffolding
 
 When a Docker deployment target is selected, these files are generated:

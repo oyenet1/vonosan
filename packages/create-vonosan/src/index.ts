@@ -31,7 +31,7 @@ async function main(): Promise<void> {
   // Parse flags
   const saasFlag = args.includes('--saas')
 
-  process.stdout.write(bold(`\ncreate-vonosan v0.1.8\n\n`))
+  process.stdout.write(bold(`\ncreate-vonosan v0.1.9\n\n`))
 
   // ── Run interactive wizard ────────────────────────────────────────
   const answers = await runWizard(initialProjectName, saasFlag)
