@@ -12,7 +12,7 @@
       },
     },
     "packages/auth": {
-      "name": "@vono/auth",
+      "name": "@vonosan/auth",
       "version": "0.1.0",
       "devDependencies": {
         "@types/bun": "1.2.14",
@@ -20,21 +20,21 @@
         "drizzle-orm": "0.44.5",
         "hono": "4.8.10",
         "typescript": "5.8.3",
-        "vono": "workspace:*",
+        "vonosan": "workspace:*",
         "zod": "4.1.8",
       },
       "peerDependencies": {
         "drizzle-orm": ">=0.44.0",
         "hono": ">=4.8.0",
-        "vono": ">=0.1.0",
+        "vonosan": ">=0.1.0",
         "zod": ">=4.0.0",
       },
     },
     "packages/cli": {
-      "name": "@vono/cli",
+      "name": "@vonosan/cli",
       "version": "0.1.0",
       "bin": {
-        "vono": "./dist/index.js",
+        "vonosan": "./dist/index.js",
       },
       "dependencies": {
         "@clack/prompts": "0.11.0",
@@ -48,17 +48,17 @@
         "@types/node": "25.5.2",
         "fast-check": "4.6.0",
         "typescript": "5.8.3",
-        "vono": "workspace:*",
+        "vonosan": "workspace:*",
       },
       "peerDependencies": {
-        "vono": ">=0.1.0",
+        "vonosan": ">=0.1.0",
       },
     },
-    "packages/create-vono": {
-      "name": "create-vono",
+    "packages/create-vonosan": {
+      "name": "create-vonosan",
       "version": "0.1.0",
       "bin": {
-        "create-vono": "./dist/index.js",
+        "create-vonosan": "./dist/index.js",
       },
       "dependencies": {
         "@clack/prompts": "0.11.0",
@@ -73,22 +73,22 @@
       },
     },
     "packages/drizzle": {
-      "name": "@vono/drizzle",
+      "name": "@vonosan/drizzle",
       "version": "0.1.0",
       "devDependencies": {
         "@types/bun": "1.2.14",
         "@types/node": "25.5.2",
         "drizzle-orm": "0.44.5",
         "typescript": "5.8.3",
-        "vono": "workspace:*",
+        "vonosan": "workspace:*",
       },
       "peerDependencies": {
         "drizzle-orm": ">=0.44.0",
-        "vono": ">=0.1.0",
+        "vonosan": ">=0.1.0",
       },
     },
     "packages/logging": {
-      "name": "@vono/logging",
+      "name": "@vonosan/logging",
       "version": "0.1.0",
       "devDependencies": {
         "@types/bun": "1.2.14",
@@ -96,16 +96,16 @@
         "drizzle-orm": "0.44.5",
         "hono": "4.8.10",
         "typescript": "5.8.3",
-        "vono": "workspace:*",
+        "vonosan": "workspace:*",
       },
       "peerDependencies": {
         "drizzle-orm": ">=0.44.0",
         "hono": ">=4.8.0",
-        "vono": ">=0.1.0",
+        "vonosan": ">=0.1.0",
       },
     },
     "packages/notifications": {
-      "name": "@vono/notifications",
+      "name": "@vonosan/notifications",
       "version": "0.1.0",
       "devDependencies": {
         "@types/bun": "1.2.14",
@@ -113,16 +113,16 @@
         "drizzle-orm": "0.44.5",
         "hono": "4.8.10",
         "typescript": "5.8.3",
-        "vono": "workspace:*",
+        "vonosan": "workspace:*",
       },
       "peerDependencies": {
         "drizzle-orm": ">=0.44.0",
         "hono": ">=4.8.0",
-        "vono": ">=0.1.0",
+        "vonosan": ">=0.1.0",
       },
     },
-    "packages/vono": {
-      "name": "vono",
+    "packages/vonosan": {
+      "name": "vonosan",
       "version": "0.1.0",
       "devDependencies": {
         "@types/bun": "1.2.14",
@@ -146,20 +146,27 @@
         "vue-router": ">=5.0.0",
         "zod": ">=4.0.0",
       },
+      "optionalPeers": [
+        "@unhead/vue",
+        "drizzle-orm",
+        "hono",
+        "pinia",
+        "zod",
+      ],
     },
     "packages/ws": {
-      "name": "@vono/ws",
+      "name": "@vonosan/ws",
       "version": "0.1.0",
       "devDependencies": {
         "@types/bun": "1.2.14",
         "@types/node": "25.5.2",
         "hono": "4.8.10",
         "typescript": "5.8.3",
-        "vono": "workspace:*",
+        "vonosan": "workspace:*",
       },
       "peerDependencies": {
         "hono": ">=4.8.0",
-        "vono": ">=0.1.0",
+        "vonosan": ">=0.1.0",
       },
     },
   },
@@ -208,17 +215,17 @@
 
     "@unhead/vue": ["@unhead/vue@2.0.10", "", { "dependencies": { "hookable": "^5.5.3", "unhead": "2.0.10" }, "peerDependencies": { "vue": ">=3.5.13" } }, "sha512-lV7E1sXX6/te8+IiUwlMysBAyJT/WM5Je47cRnpU5hsvDRziSIGfim9qMWbsTouH+paavRJz1i8gk5hRzjvkcw=="],
 
-    "@vono/auth": ["@vono/auth@workspace:packages/auth"],
+    "@vonosan/auth": ["@vonosan/auth@workspace:packages/auth"],
 
-    "@vono/cli": ["@vono/cli@workspace:packages/cli"],
+    "@vonosan/cli": ["@vonosan/cli@workspace:packages/cli"],
 
-    "@vono/drizzle": ["@vono/drizzle@workspace:packages/drizzle"],
+    "@vonosan/drizzle": ["@vonosan/drizzle@workspace:packages/drizzle"],
 
-    "@vono/logging": ["@vono/logging@workspace:packages/logging"],
+    "@vonosan/logging": ["@vonosan/logging@workspace:packages/logging"],
 
-    "@vono/notifications": ["@vono/notifications@workspace:packages/notifications"],
+    "@vonosan/notifications": ["@vonosan/notifications@workspace:packages/notifications"],
 
-    "@vono/ws": ["@vono/ws@workspace:packages/ws"],
+    "@vonosan/ws": ["@vonosan/ws@workspace:packages/ws"],
 
     "@vue-macros/common": ["@vue-macros/common@3.1.2", "", { "dependencies": { "@vue/compiler-sfc": "^3.5.22", "ast-kit": "^2.1.2", "local-pkg": "^1.1.2", "magic-string-ast": "^1.0.2", "unplugin-utils": "^0.3.0" }, "peerDependencies": { "vue": "^2.7.0 || ^3.2.25" }, "optionalPeers": ["vue"] }, "sha512-h9t4ArDdniO9ekYHAD95t9AZcAbb19lEGK+26iAjUODOIJKmObDNBSe4+6ELQAA3vtYiFPPBtHh7+cQCKi3Dng=="],
 
@@ -274,7 +281,7 @@
 
     "copy-anything": ["copy-anything@4.0.5", "", { "dependencies": { "is-what": "^5.2.0" } }, "sha512-7Vv6asjS4gMOuILabD3l739tsaxFQmC+a7pLZm02zyvs8p977bL3zEgq3yDk5rn9B0PbYgIv++jmHcuUab4RhA=="],
 
-    "create-vono": ["create-vono@workspace:packages/create-vono"],
+    "create-vonosan": ["create-vonosan@workspace:packages/create-vonosan"],
 
     "cross-spawn": ["cross-spawn@7.0.6", "", { "dependencies": { "path-key": "^3.1.0", "shebang-command": "^2.0.0", "which": "^2.0.1" } }, "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="],
 
@@ -464,7 +471,7 @@
 
     "unplugin-utils": ["unplugin-utils@0.3.1", "", { "dependencies": { "pathe": "^2.0.3", "picomatch": "^4.0.3" } }, "sha512-5lWVjgi6vuHhJ526bI4nlCOmkCIF3nnfXkCMDeMJrtdvxTs6ZFCM8oNufGTsDbKv/tJ/xj8RpvXjRuPBZJuJog=="],
 
-    "vono": ["vono@workspace:packages/vono"],
+    "vonosan": ["vonosan@workspace:packages/vonosan"],
 
     "vue": ["vue@3.5.13", "", { "dependencies": { "@vue/compiler-dom": "3.5.13", "@vue/compiler-sfc": "3.5.13", "@vue/runtime-dom": "3.5.13", "@vue/server-renderer": "3.5.13", "@vue/shared": "3.5.13" }, "peerDependencies": { "typescript": "*" }, "optionalPeers": ["typescript"] }, "sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ=="],
 
