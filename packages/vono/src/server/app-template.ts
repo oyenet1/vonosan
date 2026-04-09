@@ -47,7 +47,7 @@ export interface VonoAppOptions {
  *
  * Usage in your project's src/index.ts:
  * ```ts
- * import { createVonoApp } from 'vono/server'
+ * import { createVonoApp } from 'vonosan/server'
  * import config from '../vono.config.js'
  * import openApiSpec from './openapi.js'
  *

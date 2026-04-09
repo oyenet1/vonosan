@@ -42,7 +42,7 @@ export interface ValidationErrorBody {
  *
  * Usage:
  * ```ts
- * import { zodValidator } from 'vono/server'
+ * import { zodValidator } from 'vonosan/server'
  * import { z } from 'zod'
  *
  * const CreateUserSchema = z.object({

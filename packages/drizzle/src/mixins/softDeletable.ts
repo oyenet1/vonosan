@@ -15,12 +15,12 @@ import { timestamp } from 'drizzle-orm/pg-core'
  *
  * For SaaS products, every table MUST use soft deletes instead of
  * permanently destroying records. Combine with the `withSoftDeletes`,
- * `onlyTrashed`, and `withTrashed` query helpers from `vono/server`.
+ * `onlyTrashed`, and `withTrashed` query helpers from `vonosan/server`.
  *
  * Usage:
  * ```ts
  * import { pgTable, text } from 'drizzle-orm/pg-core'
- * import { timestamps, softDeletable } from '@vono/drizzle'
+ * import { timestamps, softDeletable } from '@vonosan/drizzle'
  *
  * export const users = pgTable('users', {
  *   id: text('id').primaryKey(),

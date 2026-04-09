@@ -167,7 +167,7 @@ const DEFAULT_API_TIER: RateLimitTier = {
  * Uses DEFAULT_AUTH_TIER unless overridden via config.
  * Override in your src/index.ts:
  * ```ts
- * import { createRateLimiter } from 'vono/server'
+ * import { createRateLimiter } from 'vonosan/server'
  * const authRateLimiter = createRateLimiter(config.rateLimit?.auth ?? DEFAULT_AUTH_TIER)
  * ```
  */
@@ -205,7 +205,7 @@ export const apiRateLimiter = createRateLimiter(
  *
  * Usage:
  * ```ts
- * import { createConfiguredRateLimiters } from 'vono/server'
+ * import { createConfiguredRateLimiters } from 'vonosan/server'
  * import config from '../vono.config.js'
  *
  * const { authRateLimiter, otpRateLimiter, apiRateLimiter } =

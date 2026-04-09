@@ -9,8 +9,8 @@
  */
 
 import { Hono } from 'hono'
-import type { AppVariables } from 'vono/types'
-import { ApiResponse } from 'vono/server'
+import type { AppVariables } from 'vonosan/types'
+import { ApiResponse } from 'vonosan/server'
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
 import { LoggingService } from '../service/logging.service.js'
 

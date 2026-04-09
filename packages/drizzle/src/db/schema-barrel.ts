@@ -43,7 +43,7 @@ export interface SchemaBarrelOptions {
  *
  * Usage:
  * ```ts
- * import { generateSchemaBarrel } from '@vono/drizzle'
+ * import { generateSchemaBarrel } from '@vonosan/drizzle'
  * await generateSchemaBarrel({ modulesDir: 'src/modules', outputPath: 'src/db/schema.ts' })
  * ```
  */

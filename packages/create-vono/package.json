@@ -1,9 +1,10 @@
 {
-  "name": "create-vono",
+  "name": "create-vonosan",
   "version": "0.1.0",
   "type": "module",
-  "description": "Create a new Vono project",
+  "description": "Create a new Vonosan project",
   "bin": {
+    "create-vonosan": "./dist/index.js",
     "create-vono": "./dist/index.js"
   },
   "main": "./dist/index.js",

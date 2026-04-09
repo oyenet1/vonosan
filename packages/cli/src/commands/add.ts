@@ -11,7 +11,7 @@
 import { execSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, writeFileSync, cpSync } from 'node:fs'
 import { join } from 'node:path'
-import { Logger } from 'vono/server'
+import { Logger } from 'vonosan/server'
 
 const green = (s: string) => `\x1b[32m${s}\x1b[0m`
 const red = (s: string) => `\x1b[31m${s}\x1b[0m`
@@ -20,15 +20,15 @@ const bold = (s: string) => `\x1b[1m${s}\x1b[0m`
 
 /** Known installable Vono modules */
 const KNOWN_MODULES: Record<string, string> = {
-  auth: '@vono/auth',
-  notifications: '@vono/notifications',
-  logging: '@vono/logging',
-  ws: '@vono/ws',
-  storage: '@vono/storage',
-  queue: '@vono/queue',
-  cache: '@vono/cache',
-  email: '@vono/email',
-  i18n: '@vono/i18n',
+  auth: '@vonosan/auth',
+  notifications: '@vonosan/notifications',
+  logging: '@vonosan/logging',
+  ws: '@vonosan/ws',
+  storage: '@vonosan/storage',
+  queue: '@vonosan/queue',
+  cache: '@vonosan/cache',
+  email: '@vonosan/email',
+  i18n: '@vonosan/i18n',
 }
 
 function run(cmd: string): void {
@@ -67,7 +67,7 @@ function updateVonoConfig(packageName: string): void {
 /**
  * `vono add <module> [--eject]`
  *
- * - Installs the @vono/<module> package
+ * - Installs the @vonosan/<module> package
  * - Generates required files
  * - Updates vono.config.ts (idempotent)
  *
@@ -85,7 +85,7 @@ export async function runAdd(args: string[]): Promise<void> {
     process.exit(1)
   }
 
-  const packageName = KNOWN_MODULES[moduleName] ?? `@vono/${moduleName}`
+  const packageName = KNOWN_MODULES[moduleName] ?? `@vonosan/${moduleName}`
 
   process.stdout.write(bold(`Adding module "${moduleName}" (${packageName}) …\n`))
 

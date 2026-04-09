@@ -74,7 +74,7 @@ function collectVonoPackages(pkg: Record<string, unknown>): Record<string, strin
   const vonoPackages: Record<string, string> = {}
 
   for (const [name, version] of Object.entries(deps)) {
-    if (name === 'vono' || name === '@vono/cli' || name.startsWith('@vono/')) {
+    if (name === 'vonosan' || name === '@vonosan/cli' || name.startsWith('@vonosan/')) {
       vonoPackages[name] = version
     }
   }
@@ -88,7 +88,7 @@ function collectVonoPackages(pkg: Record<string, unknown>): Record<string, strin
  * vono upgrade --check
  *
  * Reads package.json, checks npm registry for latest versions of
- * vono, @vono/cli, and all installed @vono/* packages.
+ * vonosan, @vonosan/cli, and all installed @vonosan/* packages.
  */
 export async function runUpgradeCheck(_args: string[]): Promise<void> {
   process.stdout.write(bold('Checking for Vono updates...\n\n'))
@@ -182,7 +182,7 @@ export async function runUpgradeApply(_args: string[]): Promise<void> {
   }> = [
     // Placeholder for future codemods
     // {
-    //   package: 'vono',
+    //   package: 'vonosan',
     //   fromMajor: 0,
     //   toMajor: 1,
     //   description: 'Migrate defineVonoConfig shape',

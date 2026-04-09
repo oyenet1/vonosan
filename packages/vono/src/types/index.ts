@@ -196,7 +196,7 @@ export interface VonoConfig {
   saas?: boolean
   /** Passkey (WebAuthn) configuration */
   passkeys?: {
-    /** Enable passkey support in @vono/auth */
+    /** Enable passkey support in @vonosan/auth */
     enabled: boolean
     /** Relying Party ID — defaults to the hostname of app.url */
     rpId?: string

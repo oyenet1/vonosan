@@ -44,7 +44,7 @@ export async function runWizard(
   projectName: string,
   saasFlag: boolean,
 ): Promise<WizardAnswers> {
-  p.intro('Welcome to Vono — the full-stack TypeScript framework')
+  p.intro('Welcome to Vonosan — the full-stack TypeScript framework')
 
   const language = await p.select({
     message: 'Language',

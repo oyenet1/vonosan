@@ -24,7 +24,7 @@ import type { VonoConfig } from '../types/index.js'
  *
  * Usage in vite.config.ts:
  * ```ts
- * import { vono } from 'vono/vite'
+ * import { vono } from 'vonosan/vite'
  * export default defineConfig({ plugins: [vono()] })
  * ```
  */
@@ -123,8 +123,8 @@ function createAutoImportPlugin(): Plugin {
             'hono': ['Hono', 'HTTPException'],
             'drizzle-orm': ['eq', 'and', 'or', 'desc', 'asc', 'isNull', 'isNotNull', 'sql', 'count', 'like', 'inArray'],
             'zod': [['z', 'z']],
-            'vono/server': ['success', 'error', 'buildPaginationMeta', 'generateId', 'prefixedId', 'toCamel', 'withSoftDeletes', 'onlyTrashed', 'withTrashed', 'Logger'],
-            'vono/client': ['useAsyncData', 'useVonoFetch', 'useCookie', 'useState', 'navigateTo', 'useSeo', 'useRouteRules', 'useFormErrors'],
+            'vonosan/server': ['success', 'error', 'buildPaginationMeta', 'generateId', 'prefixedId', 'toCamel', 'withSoftDeletes', 'onlyTrashed', 'withTrashed', 'Logger'],
+            'vonosan/client': ['useAsyncData', 'useVonoFetch', 'useCookie', 'useState', 'navigateTo', 'useSeo', 'useRouteRules', 'useFormErrors'],
           },
         ],
         dirs: [

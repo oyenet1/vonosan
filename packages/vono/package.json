@@ -1,5 +1,5 @@
 {
-  "name": "vono",
+  "name": "vonosan",
   "version": "0.1.0",
   "type": "module",
   "description": "Vono core runtime — config, composables, SSR helpers, Vite plugin",

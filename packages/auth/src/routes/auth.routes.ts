@@ -11,8 +11,8 @@
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
 import { z } from 'zod'
-import type { AppVariables } from 'vono/types'
-import { ApiResponse } from 'vono/server'
+import type { AppVariables } from 'vonosan/types'
+import { ApiResponse } from 'vonosan/server'
 import { AuthService } from '../service/auth.service.js'
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
 

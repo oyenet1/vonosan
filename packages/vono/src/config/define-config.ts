@@ -18,7 +18,7 @@ let _resolvedConfig: VonoConfig | null = null
  *
  * Place this in `vono.config.ts` at the project root:
  * ```ts
- * import { defineVonoConfig } from 'vono'
+ * import { defineVonoConfig } from 'vonosan'
  * export default defineVonoConfig({ ... })
  * ```
  */

@@ -1,9 +1,9 @@
-# Vono — The Hono + Vue Full-Stack Framework
+# Vonosan — The Hono + Vue Full-Stack Framework
 
-> **Vono** (Vue + Hono) — a batteries-included full-stack TypeScript/JavaScript framework. Hono API + Vue frontend in one codebase, with hybrid SSR, Nuxt UI, Drizzle ORM, auto-imports, and a Laravel-style CLI. Deploy anywhere Hono runs.
+> **Vonosan** (Vue + Hono) — a batteries-included full-stack TypeScript/JavaScript framework. Hono API + Vue frontend in one codebase, with hybrid SSR, Nuxt UI, Drizzle ORM, auto-imports, and a Laravel-style CLI. Deploy anywhere Hono runs.
 
 ```
-bun create vono@latest my-app
+bun create vonosan@latest my-app
 ```
 
 ---
@@ -56,30 +56,30 @@ bun create vono@latest my-app
 
 ## 0. Package Architecture — npm Packages
 
-Vono ships as multiple npm packages with clear boundaries:
+Vonosan ships as multiple npm packages with clear boundaries:
 
 | Package | Purpose | Install |
 |---|---|---|
-| `create-vono` | Project scaffolder (interactive wizard) | `bun create vono@latest my-app` |
-| `vono` | Core runtime — config, composables, SSR helpers, Vite plugin | `bun add vono` (auto-installed) |
-| `@vono/cli` | Artisan-style scaffolding CLI (`vono make:module`, `vono migrate`, etc.) | `bun add -D @vono/cli` |
-| `@vono/drizzle` | Drizzle ORM integration — mixins, soft deletes, scopes, seed helpers | `bun add @vono/drizzle` |
-| `@vono/auth` | Authentication module — JWT, OAuth, magic link, pages, composables | `vono add auth` |
-| `@vono/notifications` | In-app notification module — DB, API, composables, pages | `vono add notifications` |
-| `@vono/logging` | Activity/audit logging module | `vono add logging` |
-| `@vono/ws` | WebSocket module — adapter-based (native, socket.io, CF) | `vono add ws` |
+| `create-vonosan` | Project scaffolder (interactive wizard) | `bun create vonosan@latest my-app` |
+| `vonosan` | Core runtime — config, composables, SSR helpers, Vite plugin | `bun add vonosan` (auto-installed) |
+| `@vonosan/cli` | Artisan-style scaffolding CLI (`vono make:module`, `vono migrate`, etc.) | `bun add -D @vonosan/cli` |
+| `@vonosan/drizzle` | Drizzle ORM integration — mixins, soft deletes, scopes, seed helpers | `bun add @vonosan/drizzle` |
+| `@vonosan/auth` | Authentication module — JWT, OAuth, magic link, pages, composables | `vono add auth` |
+| `@vonosan/notifications` | In-app notification module — DB, API, composables, pages | `vono add notifications` |
+| `@vonosan/logging` | Activity/audit logging module | `vono add logging` |
+| `@vonosan/ws` | WebSocket module — adapter-based (native, socket.io, CF) | `vono add ws` |
 
-### What ships in `vono` (core):
+### What ships in `vonosan` (core):
 
 **Subpath exports (`package.json` exports map):**
 
 | Import | Contents |
 |---|---|
-| `vono` | `defineVonoConfig()`, `useVonoConfig()` |
-| `vono/vite` | Vite plugin — SSR, auto-imports, dev server, HMR |
-| `vono/server` | Server-side helpers — `success()`, `error()`, `paginate()`, middleware factories |
-| `vono/client` | Client-side composables — `useAsyncData()`, `useCookie()`, `useState()`, `useVonoFetch()`, `navigateTo()` |
-| `vono/types` | Shared TypeScript types — `VonoConfig`, `AppVariables`, `ModuleDefinition` |
+| `vonosan` | `defineVonoConfig()`, `useVonoConfig()` |
+| `vonosan/vite` | Vite plugin — SSR, auto-imports, dev server, HMR |
+| `vonosan/server` | Server-side helpers — `success()`, `error()`, `paginate()`, middleware factories |
+| `vonosan/client` | Client-side composables — `useAsyncData()`, `useCookie()`, `useState()`, `useVonoFetch()`, `navigateTo()` |
+| `vonosan/types` | Shared TypeScript types — `VonoConfig`, `AppVariables`, `ModuleDefinition` |
 
 ### What lives in user-land (generated into the project):
 
@@ -91,9 +91,9 @@ Vono ships as multiple npm packages with clear boundaries:
 
 ### Boundary rule:
 
-> **Framework code** (in `node_modules/vono`) handles wiring, conventions, and defaults.
+> **Framework code** (in `node_modules/vonosan`) handles wiring, conventions, and defaults.
 > **User code** (in `src/`) owns business logic. Generated once, then fully owned by the developer.
-> **Modules** (`@vono/auth`, etc.) can be installed as dependencies OR scaffolded as user code via `vono add auth --eject`.
+> **Modules** (`@vonosan/auth`, etc.) can be installed as dependencies OR scaffolded as user code via `vono add auth --eject`.
 
 ---
 

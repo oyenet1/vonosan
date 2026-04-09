@@ -17,7 +17,7 @@ import type { App } from 'vue'
  *
  * Call this in your generated src/main.ts:
  * ```ts
- * import { setupNuxtUI } from 'vono/client'
+ * import { setupNuxtUI } from 'vonosan/client'
  * setupNuxtUI(app, { primary: 'blue', neutral: 'zinc' })
  * ```
  *

@@ -34,7 +34,7 @@ export interface DbClient {
  *
  * Usage:
  * ```ts
- * import { createDb } from '@vono/drizzle'
+ * import { createDb } from '@vonosan/drizzle'
  *
  * const { db, client } = createDb(process.env.DATABASE_URL!)
  * const users = await db.select().from(usersTable)

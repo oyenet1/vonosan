@@ -21,7 +21,7 @@ export interface LogEntry {
  * Structured logger — replaces raw console.* calls.
  *
  * Usage:
- *   import { Logger } from 'vono/server'
+ *   import { Logger } from 'vonosan/server'
  *   Logger.info('User created', { userId: '123' })
  *   Logger.error('DB connection failed', { error: err.message })
  */

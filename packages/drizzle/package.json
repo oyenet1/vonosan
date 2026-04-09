@@ -1,5 +1,5 @@
 {
-  "name": "@vono/drizzle",
+  "name": "@vonosan/drizzle",
   "version": "0.1.0",
   "type": "module",
   "description": "Vono Drizzle ORM integration — mixins, soft deletes, scopes, seed helpers",
@@ -11,6 +11,9 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -18,12 +21,12 @@
   },
   "peerDependencies": {
     "drizzle-orm": ">=0.44.0",
-    "vono": ">=0.1.0"
+    "vonosan": ">=0.1.0"
   },
   "devDependencies": {
     "@types/bun": "1.2.14",
     "drizzle-orm": "0.44.5",
     "typescript": "5.8.3",
-    "vono": "workspace:*"
+    "vonosan": "workspace:*"
   }
 }

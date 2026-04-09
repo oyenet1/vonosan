@@ -42,7 +42,7 @@ export function generateService(name: string): string {
   const header = generateHeader(`src/modules/${name}/${name}.service.ts`)
   return `${header}
 
-import type { AppVariables } from 'vono/types'
+import type { AppVariables } from 'vonosan/types'
 import type { Context } from 'hono'
 
 export class ${pascal}Service {
@@ -86,8 +86,8 @@ export function generateController(name: string): string {
   return `${header}
 
 import type { Context } from 'hono'
-import type { AppVariables } from 'vono/types'
-import { success, error } from 'vono/server'
+import type { AppVariables } from 'vonosan/types'
+import { success, error } from 'vonosan/server'
 import { ${camel}Service } from './${name}.service.js'
 
 export const ${pascal}Controller = {
@@ -149,7 +149,7 @@ export function generateRoutes(name: string): string {
   return `${header}
 
 import { Hono } from 'hono'
-import type { AppVariables } from 'vono/types'
+import type { AppVariables } from 'vonosan/types'
 import { ${pascal}Controller } from './${name}.controller.js'
 
 const router = new Hono<{ Variables: AppVariables }>()
@@ -189,7 +189,7 @@ export function generateResource(name: string): string {
   const header = generateHeader(`src/modules/${name}/${name}.resource.ts`)
   return `${header}
 
-import { buildPaginationMeta } from 'vono/server'
+import { buildPaginationMeta } from 'vonosan/server'
 
 export class ${pascal}Resource {
   static toResource(item: Record<string, unknown>, fields?: string[]) {
@@ -221,7 +221,7 @@ export function generatePolicy(name: string): string {
   const header = generateHeader(`src/modules/${name}/${name}.policy.ts`)
   return `${header}
 
-import type { AuthAccount } from 'vono/types'
+import type { AuthAccount } from 'vonosan/types'
 
 export class ${pascal}Policy {
   static view(_user: AuthAccount, _resource?: unknown): boolean {
@@ -272,8 +272,8 @@ export function generateMiddleware(name: string): string {
   return `${header}
 
 import type { Context, Next } from 'hono'
-import type { AppVariables } from 'vono/types'
-import { Logger } from 'vono/server'
+import type { AppVariables } from 'vonosan/types'
+import { Logger } from 'vonosan/server'
 
 /**
  * ${pascal} middleware — add your logic here.
@@ -321,7 +321,7 @@ export function generateComposable(name: string): string {
   return `${header}
 
 import { ref } from 'vue'
-import { useVonoFetch } from 'vono/client'
+import { useVonoFetch } from 'vonosan/client'
 
 export function use${pascal}() {
   const items = ref<unknown[]>([])
@@ -400,7 +400,7 @@ export function generateSeed(name: string): string {
   const header = generateHeader(`src/db/seeds/${name}.ts`)
   return `${header}
 
-import { Logger } from 'vono/server'
+import { Logger } from 'vonosan/server'
 
 /**
  * Seed: ${name}
@@ -474,7 +474,7 @@ export function generateNotification(name: string): string {
   const header = generateHeader(`src/modules/${name}/notifications/${name}.notification.ts`)
   return `${header}
 
-import { defineEmail } from 'vono/server'
+import { defineEmail } from 'vonosan/server'
 
 export const ${toCamelCase(name)}Notification = defineEmail({
   subject: '${pascal} Notification',
@@ -492,8 +492,8 @@ export function generateJob(name: string): string {
   const header = generateHeader(`src/jobs/${name}.job.ts`)
   return `${header}
 
-import { defineJob } from 'vono/server'
-import { Logger } from 'vono/server'
+import { defineJob } from 'vonosan/server'
+import { Logger } from 'vonosan/server'
 
 export const ${toCamelCase(name)}Job = defineJob({
   name: '${name}',
@@ -513,7 +513,7 @@ export function generateEmail(name: string): string {
   const header = generateHeader(`src/emails/${name}.email.ts`)
   return `${header}
 
-import { defineEmail } from 'vono/server'
+import { defineEmail } from 'vonosan/server'
 
 export const ${toCamelCase(name)}Email = defineEmail({
   subject: '${pascal}',

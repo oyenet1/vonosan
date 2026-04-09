@@ -13,7 +13,7 @@
  *
  * Call this in app.ts before mounting the Vue app:
  * ```ts
- * import { hydratePinia } from 'vono/client'
+ * import { hydratePinia } from 'vonosan/client'
  * hydratePinia(pinia)
  * ```
  *

@@ -9,7 +9,7 @@
  */
 
 import { Hono } from 'hono'
-import type { AppVariables } from 'vono/types'
+import type { AppVariables } from 'vonosan/types'
 import {
   listNotifications,
   markNotificationRead,

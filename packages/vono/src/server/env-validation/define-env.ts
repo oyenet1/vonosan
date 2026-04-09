@@ -31,7 +31,7 @@ export interface DefineEnvOptions<T> {
  * @example
  * ```ts
  * // src/env.ts
- * import { defineEnv } from 'vono/server'
+ * import { defineEnv } from 'vonosan/server'
  * import { z } from 'zod'
  *
  * export const env = defineEnv(

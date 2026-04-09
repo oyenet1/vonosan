@@ -67,7 +67,7 @@ function checkConsoleLogs(filePath: string, content: string): LintResult[] {
         file: filePath,
         line: i + 1,
         rule: 'console-log',
-        message: `Raw \`console.${match[1]}()\` detected. Use \`Logger.${match[1]}()\` from vono/server instead.`,
+        message: `Raw \`console.${match[1]}()\` detected. Use \`Logger.${match[1]}()\` from vonosan/server instead.`,
       })
     }
   }

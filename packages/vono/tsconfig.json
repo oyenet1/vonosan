@@ -4,11 +4,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "paths": {
-      "vono": ["./src/index.ts"],
-      "vono/types": ["./src/types/index.ts"],
-      "vono/server": ["./src/server/index.ts"],
-      "vono/client": ["./src/client/index.ts"],
-      "vono/vite": ["./src/vite/index.ts"]
+      "vonosan": ["./src/index.ts"],
+      "vonosan/types": ["./src/types/index.ts"],
+      "vonosan/server": ["./src/server/index.ts"],
+      "vonosan/client": ["./src/client/index.ts"],
+      "vonosan/vite": ["./src/vite/index.ts"]
     }
   },
   "include": ["src/**/*"]

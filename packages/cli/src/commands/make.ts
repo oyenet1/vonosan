@@ -106,8 +106,8 @@ export async function runMakeVersion(args: string[]): Promise<void> {
     `${header}
 
 import { Hono } from 'hono'
-import type { AppVariables } from 'vono/types'
-import { autoRegisterRoutes } from 'vono/server'
+import type { AppVariables } from 'vonosan/types'
+import { autoRegisterRoutes } from 'vonosan/server'
 
 /**
  * API ${version} router.

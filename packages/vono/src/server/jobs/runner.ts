@@ -26,7 +26,7 @@ import type { JobDefinition } from './define-job.js'
  *
  * @example
  * ```ts
- * import { startJobs } from 'vono/server'
+ * import { startJobs } from 'vonosan/server'
  * import { cleanupJob } from './jobs/cleanup.job'
  *
  * startJobs([cleanupJob], db, config)

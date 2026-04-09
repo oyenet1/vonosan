@@ -10,8 +10,8 @@
 
 import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception'
-import type { AppVariables } from 'vono/types'
-import { success, error } from 'vono/server'
+import type { AppVariables } from 'vonosan/types'
+import { success, error } from 'vonosan/server'
 import { PasskeyService } from '../service/passkey.service.js'
 import { authMiddleware } from '../middleware/auth.middleware.js'
 

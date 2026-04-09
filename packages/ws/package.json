@@ -1,5 +1,5 @@
 {
-  "name": "@vono/ws",
+  "name": "@vonosan/ws",
   "version": "0.1.0",
   "type": "module",
   "description": "Vono WebSocket module — adapter-based (native, socket.io, CF)",
@@ -11,6 +11,9 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -18,12 +21,12 @@
   },
   "peerDependencies": {
     "hono": ">=4.8.0",
-    "vono": ">=0.1.0"
+    "vonosan": ">=0.1.0"
   },
   "devDependencies": {
     "@types/bun": "1.2.14",
     "hono": "4.8.10",
     "typescript": "5.8.3",
-    "vono": "workspace:*"
+    "vonosan": "workspace:*"
   }
 }

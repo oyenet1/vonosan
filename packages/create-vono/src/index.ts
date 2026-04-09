@@ -26,12 +26,12 @@ async function main(): Promise<void> {
   const args = process.argv.slice(2)
 
   // Parse project name (first positional arg)
-  const projectName = args.find((a) => !a.startsWith('--')) ?? 'my-vono-app'
+  const projectName = args.find((a) => !a.startsWith('--')) ?? 'my-vonosan-app'
 
   // Parse flags
   const saasFlag = args.includes('--saas')
 
-  process.stdout.write(bold(`\ncreate-vono v0.1.0\n\n`))
+  process.stdout.write(bold(`\ncreate-vonosan v0.1.0\n\n`))
 
   // ── Run interactive wizard ────────────────────────────────────────
   const answers = await runWizard(projectName, saasFlag)

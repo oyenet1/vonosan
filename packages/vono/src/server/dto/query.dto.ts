@@ -18,7 +18,7 @@ import { z } from 'zod'
  *
  * Usage with zodValidator:
  * ```ts
- * import { zodValidator, QuerySchema } from 'vono/server'
+ * import { zodValidator, QuerySchema } from 'vonosan/server'
  *
  * router.get('/users',
  *   zodValidator('query', QuerySchema),

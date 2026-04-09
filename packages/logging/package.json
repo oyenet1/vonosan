@@ -1,5 +1,5 @@
 {
-  "name": "@vono/logging",
+  "name": "@vonosan/logging",
   "version": "0.1.0",
   "type": "module",
   "description": "Vono activity and audit logging module",
@@ -11,6 +11,9 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -19,13 +22,13 @@
   "peerDependencies": {
     "drizzle-orm": ">=0.44.0",
     "hono": ">=4.8.0",
-    "vono": ">=0.1.0"
+    "vonosan": ">=0.1.0"
   },
   "devDependencies": {
     "@types/bun": "1.2.14",
     "drizzle-orm": "0.44.5",
     "hono": "4.8.10",
     "typescript": "5.8.3",
-    "vono": "workspace:*"
+    "vonosan": "workspace:*"
   }
 }

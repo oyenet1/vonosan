@@ -1,5 +1,5 @@
 {
-  "name": "@vono/cli",
+  "name": "@vonosan/cli",
   "version": "0.1.0",
   "type": "module",
   "description": "Vono Artisan-style scaffolding CLI",
@@ -7,6 +7,9 @@
     "vono": "./dist/index.js"
   },
   "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": ["dist", "templates"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -20,12 +23,12 @@
     "kolorist": "1.8.0"
   },
   "peerDependencies": {
-    "vono": ">=0.1.0"
+    "vonosan": ">=0.1.0"
   },
   "devDependencies": {
     "@types/bun": "1.2.14",
     "fast-check": "4.6.0",
     "typescript": "5.8.3",
-    "vono": "workspace:*"
+    "vonosan": "workspace:*"
   }
 }

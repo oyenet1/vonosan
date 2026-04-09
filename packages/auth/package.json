@@ -1,5 +1,5 @@
 {
-  "name": "@vono/auth",
+  "name": "@vonosan/auth",
   "version": "0.1.0",
   "type": "module",
   "description": "Vono authentication module — JWT, OAuth, magic link, passkeys, pages, composables",
@@ -11,6 +11,9 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -19,7 +22,7 @@
   "peerDependencies": {
     "drizzle-orm": ">=0.44.0",
     "hono": ">=4.8.0",
-    "vono": ">=0.1.0",
+    "vonosan": ">=0.1.0",
     "zod": ">=4.0.0"
   },
   "devDependencies": {
@@ -27,7 +30,7 @@
     "drizzle-orm": "0.44.5",
     "hono": "4.8.10",
     "typescript": "5.8.3",
-    "vono": "workspace:*",
+    "vonosan": "workspace:*",
     "zod": "4.1.8"
   }
 }

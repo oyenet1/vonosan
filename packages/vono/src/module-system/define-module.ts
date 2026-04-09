@@ -28,7 +28,7 @@ export interface VonoModuleHooks {
 }
 
 export interface VonoModuleDefinition {
-  /** Unique module identifier, e.g. '@vono/auth' */
+  /** Unique module identifier, e.g. '@vonosan/auth' */
   name: string
 
   /** Semver version string */
@@ -81,7 +81,7 @@ export interface VonoModuleDefinition {
  * @example
  * ```ts
  * export default defineVonoModule({
- *   name: '@vono/auth',
+ *   name: '@vonosan/auth',
  *   version: '0.1.0',
  *   setup: async () => { ... },
  *   hooks: {

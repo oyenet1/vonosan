@@ -28,7 +28,7 @@ export function generateTemplates(answers: WizardAnswers): Record<string, string
   return {
     'vono.config.ts': `${h}
 
-import { defineVonoConfig } from 'vono'
+  import { defineVonoConfig } from 'vonosan'
 
 export default defineVonoConfig({
   app: {
@@ -53,8 +53,8 @@ export default defineVonoConfig({
 
     'vite.config.ts': `${h}
 
-import { defineConfig } from 'vite'
-import { vono } from 'vono/vite'
+  import { defineConfig } from 'vite'
+  import { vono } from 'vonosan/vite'
 import vonoConfig from './vono.config.js'
 
 export default defineConfig({
@@ -183,7 +183,7 @@ export function createApp() {
 
     'src/app.ts': `${h}
 
-import { createVonoApp } from 'vono/server'
+  import { createVonoApp } from 'vonosan/server'
 import config from '../vono.config.js'
 ${apiDocs ? "import openApiSpec from './openapi.js'" : ''}
 
@@ -228,7 +228,7 @@ export function createRouter() {
 
     'src/route-rules.ts': `${h}
 
-import type { RouteRules } from 'vono/server'
+  import type { RouteRules } from 'vonosan/server'
 
 /**
  * Route rules — control SSR/SPA rendering per path.
@@ -250,7 +250,7 @@ export { default } from './server.js'
       ? {
           'src/openapi.ts': `${h}
 
-import { generateOpenApiSpec } from 'vono/server'
+import { generateOpenApiSpec } from 'vonosan/server'
 
 export default generateOpenApiSpec(
   '${projectName}',
@@ -263,7 +263,7 @@ export default generateOpenApiSpec(
 
     'src/db/index.ts': `${h}
 
-import { createDb } from '@vono/drizzle'
+  import { createDb } from '@vonosan/drizzle'
 
 export const { db, client } = createDb(process.env.DATABASE_URL!)
 `,
@@ -300,8 +300,8 @@ export {}
           ...(testing !== 'none' ? { test: testing === 'bun' ? 'bun test' : testing } : {}),
         },
         dependencies: {
-          vono: 'latest',
-          '@vono/drizzle': 'latest',
+          vonosan: 'latest',
+          '@vonosan/drizzle': 'latest',
           hono: 'latest',
           vue: 'latest',
           'vue-router': 'latest',
@@ -312,7 +312,7 @@ export {}
           zod: 'latest',
         },
         devDependencies: {
-          '@vono/cli': 'latest',
+          '@vonosan/cli': 'latest',
           typescript: 'latest',
           vite: 'latest',
           'drizzle-kit': 'latest',
@@ -333,7 +333,7 @@ export {}
           jsx: 'preserve',
           lib: ['ESNext', 'DOM'],
           paths: {
-            '@@ws-adapter': ['./node_modules/@vono/ws/adapters/bun.js'],
+            '@@ws-adapter': ['./node_modules/@vonosan/ws/adapters/bun.js'],
           },
         },
         include: ['src/**/*', 'vono.config.ts'],

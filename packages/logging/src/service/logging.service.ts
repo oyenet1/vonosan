@@ -10,7 +10,7 @@
 
 import { eq, and, gte, lte, desc } from 'drizzle-orm'
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
-import { generateId, buildPaginationMeta, Logger } from 'vono/server'
+import { generateId, buildPaginationMeta, Logger } from 'vonosan/server'
 import { activityLogs } from '../schema.js'
 
 // ─── Types ───────────────────────────────────────────────────────────────────

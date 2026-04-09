@@ -18,7 +18,7 @@ import { timestamp } from 'drizzle-orm/pg-core'
  * Usage:
  * ```ts
  * import { pgTable, text } from 'drizzle-orm/pg-core'
- * import { timestamps } from '@vono/drizzle'
+ * import { timestamps } from '@vonosan/drizzle'
  *
  * export const users = pgTable('users', {
  *   id: text('id').primaryKey(),
