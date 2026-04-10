@@ -37,6 +37,6 @@
     "drizzle-orm": "0.44.5",
     "hono": "4.8.10",
     "typescript": "5.8.3",
-    "vonosan": "workspace:*"
+    "vonosan": "0.2.1"
   }
 }

@@ -38,6 +38,6 @@
     "@types/node": "25.5.2",
     "fast-check": "4.6.0",
     "typescript": "5.8.3",
-    "vonosan": "workspace:*"
+    "vonosan": "0.2.1"
   }
 }
