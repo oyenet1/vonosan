@@ -1,6 +1,6 @@
 {
   "name": "@vonosan/cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Vono Artisan-style scaffolding CLI",
   "repository": {
@@ -15,7 +15,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": ["dist", "templates"],
+  "files": [
+    "dist",
+    "templates"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch"

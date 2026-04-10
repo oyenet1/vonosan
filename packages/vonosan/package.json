@@ -1,6 +1,6 @@
 {
   "name": "vonosan",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Vonosan core runtime — config, composables, SSR helpers, Vite plugin",
   "license": "MIT",
@@ -11,7 +11,15 @@
     "directory": "packages/vonosan"
   },
   "homepage": "https://github.com/oyenet1/vonosan#readme",
-  "keywords": ["vonosan", "vue", "vite", "ssr", "framework", "hono", "fullstack"],
+  "keywords": [
+    "vonosan",
+    "vue",
+    "vite",
+    "ssr",
+    "framework",
+    "hono",
+    "fullstack"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -56,11 +64,21 @@
     "zod": ">=4.0.0"
   },
   "peerDependenciesMeta": {
-    "@unhead/vue": { "optional": true },
-    "drizzle-orm": { "optional": true },
-    "hono": { "optional": true },
-    "pinia": { "optional": true },
-    "zod": { "optional": true }
+    "@unhead/vue": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    },
+    "hono": {
+      "optional": true
+    },
+    "pinia": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/bun": "1.2.14",

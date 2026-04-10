@@ -1,6 +1,6 @@
 {
   "name": "@vonosan/ws",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Vono WebSocket module — adapter-based (native, socket.io, CF)",
   "repository": {
@@ -19,7 +19,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch"
