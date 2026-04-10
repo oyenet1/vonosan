@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Vono activity and audit logging module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyenet1/vonosan.git",
+    "directory": "packages/logging"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",

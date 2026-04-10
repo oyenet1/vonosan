@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Vono Drizzle ORM integration — mixins, soft deletes, scopes, seed helpers",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyenet1/vonosan.git",
+    "directory": "packages/drizzle"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",

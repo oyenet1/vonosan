@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Vono WebSocket module — adapter-based (native, socket.io, CF)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyenet1/vonosan.git",
+    "directory": "packages/ws"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",

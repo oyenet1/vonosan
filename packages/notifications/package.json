@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Vono in-app notification module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyenet1/vonosan.git",
+    "directory": "packages/notifications"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
