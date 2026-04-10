@@ -24,7 +24,8 @@
     "fullstack"
   ],
   "bin": {
-    "create-vonosan": "./dist/index.js"
+    "create-vonosan": "./dist/index.js",
+    "create-vono": "./dist/index.js"
   },
   "main": "./dist/index.js",
   "files": [
