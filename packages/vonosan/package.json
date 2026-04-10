@@ -43,7 +43,8 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "tsc -p tsconfig.json --watch"
+    "dev": "tsc -p tsconfig.json --watch",
+    "prepack": "npm run build"
   },
   "peerDependencies": {
     "@unhead/vue": ">=2.0.0",
