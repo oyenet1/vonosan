@@ -56,6 +56,10 @@ export type { StorageUrlConfig } from './utils/storage-url.js'
 export { generateOpenApiSpec, appendModuleTag } from './openapi/index.js'
 export type { OpenApiSpec } from './openapi/index.js'
 
+// Route Rules
+export { resolveRouteRule, defaultRule, defaultRouteRules, matchPattern } from './route-rules.js'
+export type { RouteRule, RouteRules, RenderMode } from './route-rules.js'
+
 // Authorization — Gates & Policies
 export {
   registerGate,

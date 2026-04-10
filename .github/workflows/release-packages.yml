@@ -100,7 +100,7 @@ jobs:
 
           for pkg in packages/*; do
             if [ -f "$pkg/package.json" ]; then
-              npm pack "$pkg" --pack-destination release-packages
+              npm pack "./$pkg" --pack-destination release-packages
             fi
           done
 
@@ -239,5 +239,5 @@ jobs:
             fi
 
             echo "Publishing $name@$version"
-            npm publish "$pkg" --access public
+            npm publish "./$pkg" --access public
           done

@@ -13,7 +13,7 @@
     },
     "packages/auth": {
       "name": "@vonosan/auth",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "devDependencies": {
         "@hono/zod-validator": "0.7.5",
         "@types/bun": "1.2.14",
@@ -21,7 +21,7 @@
         "drizzle-orm": "0.44.5",
         "hono": "4.8.10",
         "typescript": "5.8.3",
-        "vonosan": "workspace:*",
+        "vonosan": "0.2.1",
         "vue": "3.5.13",
         "vue-router": "5.0.0",
         "zod": "4.1.8",
@@ -37,7 +37,7 @@
     },
     "packages/cli": {
       "name": "@vonosan/cli",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "bin": {
         "vonosan": "./dist/index.js",
       },
@@ -53,7 +53,7 @@
         "@types/node": "25.5.2",
         "fast-check": "4.6.0",
         "typescript": "5.8.3",
-        "vonosan": "workspace:*",
+        "vonosan": "0.2.1",
       },
       "peerDependencies": {
         "vonosan": ">=0.1.0",
@@ -61,7 +61,7 @@
     },
     "packages/create-vonosan": {
       "name": "create-vonosan",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "bin": {
         "create-vonosan": "./dist/index.js",
       },
@@ -79,7 +79,7 @@
     },
     "packages/drizzle": {
       "name": "@vonosan/drizzle",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "dependencies": {
         "@neondatabase/serverless": "1.0.1",
         "postgres": "3.4.7",
@@ -89,7 +89,7 @@
         "@types/node": "25.5.2",
         "drizzle-orm": "0.44.5",
         "typescript": "5.8.3",
-        "vonosan": "workspace:*",
+        "vonosan": "0.2.1",
       },
       "peerDependencies": {
         "drizzle-orm": ">=0.44.0",
@@ -98,14 +98,14 @@
     },
     "packages/logging": {
       "name": "@vonosan/logging",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "devDependencies": {
         "@types/bun": "1.2.14",
         "@types/node": "25.5.2",
         "drizzle-orm": "0.44.5",
         "hono": "4.8.10",
         "typescript": "5.8.3",
-        "vonosan": "workspace:*",
+        "vonosan": "0.2.1",
       },
       "peerDependencies": {
         "drizzle-orm": ">=0.44.0",
@@ -115,14 +115,14 @@
     },
     "packages/notifications": {
       "name": "@vonosan/notifications",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "devDependencies": {
         "@types/bun": "1.2.14",
         "@types/node": "25.5.2",
         "drizzle-orm": "0.44.5",
         "hono": "4.8.10",
         "typescript": "5.8.3",
-        "vonosan": "workspace:*",
+        "vonosan": "0.2.1",
       },
       "peerDependencies": {
         "drizzle-orm": ">=0.44.0",
@@ -132,7 +132,7 @@
     },
     "packages/vonosan": {
       "name": "vonosan",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "devDependencies": {
         "@types/bun": "1.2.14",
         "@types/node": "25.5.2",
@@ -165,13 +165,13 @@
     },
     "packages/ws": {
       "name": "@vonosan/ws",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "devDependencies": {
         "@types/bun": "1.2.14",
         "@types/node": "25.5.2",
         "hono": "4.8.10",
         "typescript": "5.8.3",
-        "vonosan": "workspace:*",
+        "vonosan": "0.2.1",
         "vue": "3.5.13",
       },
       "peerDependencies": {

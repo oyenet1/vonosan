@@ -30,7 +30,9 @@ export async function setupNuxtUI(
 ): Promise<void> {
   try {
     // Dynamic import to avoid hard dependency at build time
-    const { ui } = await import('@nuxt/ui/vue-plugin')
+    const { default: ui } = await import('@nuxt/ui/vue-plugin')
+
+    if (!ui) return
 
     if (colors) {
       // @nuxt/ui reads colors from CSS variables; pass them as plugin options

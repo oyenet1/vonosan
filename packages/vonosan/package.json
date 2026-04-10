@@ -1,6 +1,6 @@
 {
   "name": "vonosan",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "description": "Vonosan core runtime — config, composables, SSR helpers, Vite plugin",
   "license": "MIT",
@@ -33,6 +33,14 @@
       "import": "./dist/server/index.js",
       "types": "./dist/server/index.d.ts"
     },
+    "./server/openapi": {
+      "import": "./dist/server/openapi/index.js",
+      "types": "./dist/server/openapi/index.d.ts"
+    },
+    "./server/route-rules": {
+      "import": "./dist/server/route-rules.js",
+      "types": "./dist/server/route-rules.d.ts"
+    },
     "./client": {
       "import": "./dist/client/index.js",
       "types": "./dist/client/index.d.ts"
@@ -57,6 +65,7 @@
   "dependencies": {
     "@hono/vite-dev-server": "latest",
     "@vitejs/plugin-vue": "latest",
+    "node-cron": "latest",
     "unplugin-auto-import": "latest",
     "unplugin-vue-components": "latest"
   },

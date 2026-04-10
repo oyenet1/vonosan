@@ -473,14 +473,14 @@ WEBSOCKET_DRIVER=
 
 import { createSSRApp } from 'vue'
 import { createPinia } from 'pinia'
-import { createHead } from '@unhead/vue'
+import { createUnhead } from '@unhead/vue'
 import App from './App.vue'
 import { createRouter } from './router.js'
 
 export function createApp() {
   const app = createSSRApp(App)
   const pinia = createPinia()
-  const head = createHead()
+  const head = createUnhead()
   const router = createRouter()
 
   app.use(pinia)
@@ -541,18 +541,35 @@ export function createRouter() {
 }
 `,
 
+    'src/modules/home/index.page.vue': `<template>
+  <main>
+    <h1>${projectName}</h1>
+    <p>Welcome to your Vonosan app.</p>
+  </main>
+</template>
+`,
+
     'src/route-rules.ts': `${h}
 
-import type { RouteRules } from 'vonosan/server'
+import type { RouteRules } from 'vonosan/server/route-rules'
 
 /**
  * Route rules — control SSR/SPA rendering per path.
  * Matched top-to-bottom; first match wins.
  */
 export const routeRules: RouteRules = {
-  '/': { ssr: true },
-  '/dashboard/**': { ssr: false },
-  '/admin/**': { ssr: false },
+  '/': { mode: 'ssr', cache: 3600 },
+  '/dashboard/**': { mode: 'spa' },
+  '/admin/**': { mode: 'spa' },
+}
+`,
+
+    'src/env.d.ts': `/// <reference types="vite/client" />
+
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, unknown>
+  export default component
 }
 `,
 
@@ -999,13 +1016,14 @@ export {}
           module: 'ESNext',
           moduleResolution: 'bundler',
           strict: true,
+          skipLibCheck: true,
           jsx: 'preserve',
           lib: ['ESNext', 'DOM'],
           paths: {
             '@@ws-adapter': ['./node_modules/@vonosan/ws/adapters/bun.js'],
           },
         },
-        include: ['src/**/*', 'vonosan.config.ts'],
+        include: ['src/**/*', '*.d.ts', 'vonosan.config.ts'],
         exclude: ['node_modules', 'dist'],
       },
       null,
