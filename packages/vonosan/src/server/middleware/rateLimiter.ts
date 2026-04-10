@@ -206,11 +206,7 @@ export const apiRateLimiter = createRateLimiter(
  * Usage:
  * ```ts
  * import { createConfiguredRateLimiters } from 'vonosan/server'
-<<<<<<< HEAD:packages/vono/src/server/middleware/rateLimiter.ts
- * import config from '../vono.config.js'
-=======
  * import config from '../vonosan.config.js'
->>>>>>> v0.1.0:packages/vonosan/src/server/middleware/rateLimiter.ts
  *
  * const { authRateLimiter, otpRateLimiter, apiRateLimiter } =
  *   createConfiguredRateLimiters(config.rateLimit)

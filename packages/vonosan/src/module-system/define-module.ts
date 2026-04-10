@@ -27,11 +27,7 @@ export interface VonosanModuleHooks {
   'routes:resolved'?: (...args: unknown[]) => void | Promise<void>
 }
 
-<<<<<<< HEAD:packages/vono/src/module-system/define-module.ts
-export interface VonoModuleDefinition {
-=======
 export interface VonosanModuleDefinition {
->>>>>>> v0.1.0:packages/vonosan/src/module-system/define-module.ts
   /** Unique module identifier, e.g. '@vonosan/auth' */
   name: string
 
@@ -84,11 +80,7 @@ export interface VonosanModuleDefinition {
  *
  * @example
  * ```ts
-<<<<<<< HEAD:packages/vono/src/module-system/define-module.ts
- * export default defineVonoModule({
-=======
  * export default defineVonosanModule({
->>>>>>> v0.1.0:packages/vonosan/src/module-system/define-module.ts
  *   name: '@vonosan/auth',
  *   version: '0.1.0',
  *   setup: async () => { ... },

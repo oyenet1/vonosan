@@ -321,11 +321,7 @@ export function generateComposable(name: string): string {
   return `${header}
 
 import { ref } from 'vue'
-<<<<<<< HEAD
-import { useVonoFetch } from 'vonosan/client'
-=======
 import { useVonosanFetch } from 'vonosan/client'
->>>>>>> v0.1.0
 
 export function use${pascal}() {
   const items = ref<unknown[]>([])

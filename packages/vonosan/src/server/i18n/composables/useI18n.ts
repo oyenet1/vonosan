@@ -9,6 +9,7 @@
  */
 
 import { ref, computed } from 'vue'
+import type { ComputedRef } from 'vue'
 
 // ─── Types ───────────────────────────────────────────────────────────
 
@@ -20,7 +21,7 @@ export interface UseI18nReturn {
   /** Set the active locale */
   setLocale: (newLocale: string) => void
   /** All available locale codes */
-  availableLocales: ReturnType<typeof computed<string[]>>
+  availableLocales: ComputedRef<string[]>
 }
 
 // ─── Shared reactive state ───────────────────────────────────────────

@@ -26,11 +26,7 @@ async function main(): Promise<void> {
   const args = process.argv.slice(2)
 
   // Parse project name (first positional arg)
-<<<<<<< HEAD:packages/create-vono/src/index.ts
-  const projectName = args.find((a) => !a.startsWith('--')) ?? 'my-vonosan-app'
-=======
   const initialProjectName = args.find((a) => !a.startsWith('--')) ?? ''
->>>>>>> v0.1.0:packages/create-vonosan/src/index.ts
 
   // Parse flags
   const saasFlag = args.includes('--saas')

@@ -24,13 +24,8 @@ import type { VonosanConfig } from '../types/index.js'
  *
  * Usage in vite.config.ts:
  * ```ts
-<<<<<<< HEAD:packages/vono/src/vite/index.ts
- * import { vono } from 'vonosan/vite'
- * export default defineConfig({ plugins: [vono()] })
-=======
  * import { vonosan } from 'vonosan/vite'
  * export default defineConfig({ plugins: [vonosan()] })
->>>>>>> v0.1.0:packages/vonosan/src/vite/index.ts
  * ```
  */
 export function vonosan(vonoConfig?: Partial<VonosanConfig>): Plugin[] {
@@ -129,11 +124,7 @@ function createAutoImportPlugin(): Plugin {
             'drizzle-orm': ['eq', 'and', 'or', 'desc', 'asc', 'isNull', 'isNotNull', 'sql', 'count', 'like', 'inArray'],
             'zod': [['z', 'z']],
             'vonosan/server': ['success', 'error', 'buildPaginationMeta', 'generateId', 'prefixedId', 'toCamel', 'withSoftDeletes', 'onlyTrashed', 'withTrashed', 'Logger'],
-<<<<<<< HEAD:packages/vono/src/vite/index.ts
-            'vonosan/client': ['useAsyncData', 'useVonoFetch', 'useCookie', 'useState', 'navigateTo', 'useSeo', 'useRouteRules', 'useFormErrors'],
-=======
             'vonosan/client': ['useAsyncData', 'useVonosanFetch', 'useCookie', 'useState', 'navigateTo', 'useSeo', 'useRouteRules', 'useFormErrors'],
->>>>>>> v0.1.0:packages/vonosan/src/vite/index.ts
           },
         ],
         dirs: [
@@ -190,13 +181,13 @@ function createVonoCorePlugin(vonoConfig?: Partial<VonosanConfig>): Plugin {
     name: 'vonosan:core',
 
     // Inject virtual module with route rules and public config
-    resolveId(id) {
+    resolveId(id: string) {
       if (id === 'virtual:vonosan/config') return '\0virtual:vonosan/config'
       if (id === '@@ws-adapter') return resolveWsAdapter(runtime)
       return null
     },
 
-    load(id) {
+    load(id: string) {
       if (id === '\0virtual:vonosan/config') {
         return `export const vonoConfig = ${JSON.stringify({
           app: vonoConfig?.app,
@@ -209,12 +200,13 @@ function createVonoCorePlugin(vonoConfig?: Partial<VonosanConfig>): Plugin {
     },
 
     // Dual build: client + server
-    config(config, { command }) {
+    config(config: UserConfig, { command }: { command: 'build' | 'serve' }) {
       if (command === 'build') {
+        const buildConfig = config.build as { ssr?: boolean } | undefined
         return {
           build: {
             rollupOptions: {
-              input: config.build?.ssr ? 'src/server.ts' : 'src/app.ts',
+              input: buildConfig?.ssr ? 'src/server.ts' : 'src/app.ts',
             },
           },
         }
@@ -223,7 +215,7 @@ function createVonoCorePlugin(vonoConfig?: Partial<VonosanConfig>): Plugin {
     },
 
     // Hot-reload API route files without full restart
-    async handleHotUpdate({ file, server }) {
+    async handleHotUpdate({ file, server }: { file: string; server: { ssrLoadModule: (id: string) => Promise<unknown>; ws: { send: (payload: { type: string }) => void } } }) {
       if (file.endsWith('.routes.ts')) {
         await server.ssrLoadModule(file)
         server.ws.send({ type: 'full-reload' })
@@ -233,8 +225,8 @@ function createVonoCorePlugin(vonoConfig?: Partial<VonosanConfig>): Plugin {
     },
 
     // Full restart on vonosan.config.ts changes
-    configureServer(server) {
-      server.watcher.on('change', (file) => {
+    configureServer(server: { watcher: { on: (event: 'change', handler: (file: string) => void) => void }; restart: () => void }) {
+      server.watcher.on('change', (file: string) => {
         if (file.endsWith('vonosan.config.ts')) {
           server.restart()
         }

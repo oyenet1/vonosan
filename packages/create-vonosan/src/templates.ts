@@ -63,6 +63,134 @@ export function generateTemplates(answers: WizardAnswers): Record<string, string
   const isDenoRuntimeTarget = deploymentTarget === 'deno'
   const needsSocketIoBunEngine = needsSocketIo && isBunRuntimeTarget
   const needsNodeWebSocketAdapter = needsNativeWs && isNodeRuntimeTarget
+  const usesPostgresJs = ['postgres', 'neon', 'supabase', 'vercel-postgres', 'xata'].includes(database)
+  const usesCockroach = database === 'cockroachdb'
+  const usesMysql = database === 'mysql'
+  const usesSingleStore = database === 'singlestore'
+  const usesLibsql = database === 'sqlite' || database === 'turso'
+  const usesMssql = database === 'mssql'
+  const usesD1 = database === 'd1'
+  const drizzleDialect =
+    usesPostgresJs
+      ? 'postgresql'
+      : usesCockroach
+        ? 'cockroachdb'
+        : usesMysql
+          ? 'mysql'
+          : usesSingleStore
+            ? 'singlestore'
+            : usesMssql
+              ? 'mssql'
+              : database === 'turso'
+                ? 'turso'
+                : 'sqlite'
+  const defaultDatabaseUrl =
+    usesPostgresJs || usesCockroach
+      ? `postgresql://postgres:password@localhost:5432/${projectName.replace(/-/g, '_')}`
+      : usesMysql || usesSingleStore
+        ? `mysql://root:password@localhost:3306/${projectName.replace(/-/g, '_')}`
+        : usesMssql
+          ? `sqlserver://localhost:1433;database=${projectName.replace(/-/g, '_')};user=sa;password=YourStrong@Passw0rd;encrypt=true;trustServerCertificate=true`
+          : usesLibsql
+            ? (database === 'turso' ? 'libsql://your-db.turso.io' : 'file:./sqlite.db')
+            : 'file:./sqlite.db'
+  const dbEnvBlock = usesD1
+    ? `D1_ACCOUNT_ID=
+D1_DATABASE_ID=
+D1_TOKEN=
+`
+    : `DATABASE_URL=${defaultDatabaseUrl}
+${usesLibsql ? 'DATABASE_AUTH_TOKEN=\n' : ''}`
+  const drizzleCredentialsBlock = usesD1
+    ? `  driver: 'd1-http',
+  dbCredentials: {
+    accountId: process.env.D1_ACCOUNT_ID!,
+    databaseId: process.env.D1_DATABASE_ID!,
+    token: process.env.D1_TOKEN!,
+  },`
+    : `  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },`
+  const dbBootstrap = usesPostgresJs
+    ? `${h}
+
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
+import * as schema from './schema.js'
+
+export const client = postgres(process.env.DATABASE_URL!)
+export const db = drizzle(client, { schema })
+`
+    : usesCockroach
+      ? `${h}
+
+import { drizzle } from 'drizzle-orm/cockroach'
+import { Pool } from 'pg'
+import * as schema from './schema.js'
+
+export const client = new Pool({ connectionString: process.env.DATABASE_URL! })
+export const db = drizzle({ client, schema })
+`
+      : usesMysql
+        ? `${h}
+
+import { drizzle } from 'drizzle-orm/mysql2'
+import mysql from 'mysql2/promise'
+import * as schema from './schema.js'
+
+export const client = mysql.createPool(process.env.DATABASE_URL!)
+export const db = drizzle({ client, schema, mode: 'default' })
+`
+        : usesSingleStore
+          ? `${h}
+
+import { drizzle } from 'drizzle-orm/singlestore'
+import mysql from 'mysql2/promise'
+import * as schema from './schema.js'
+
+export const client = mysql.createPool(process.env.DATABASE_URL!)
+export const db = drizzle({ client, schema })
+`
+          : usesMssql
+            ? `${h}
+
+import { drizzle } from 'drizzle-orm/node-mssql'
+import * as schema from './schema.js'
+
+export const db = drizzle(process.env.DATABASE_URL!, { schema })
+export const client = db.$client
+`
+            : usesLibsql
+              ? `${h}
+
+import { drizzle } from 'drizzle-orm/libsql'
+import { createClient } from '@libsql/client'
+import * as schema from './schema.js'
+
+export const client = createClient({
+  url: process.env.DATABASE_URL!,
+  authToken: process.env.DATABASE_AUTH_TOKEN,
+})
+
+export const db = drizzle(client, { schema })
+`
+              : usesD1
+                ? `${h}
+
+import { drizzle } from 'drizzle-orm/d1'
+import * as schema from './schema.js'
+
+export function createD1Db(binding: D1Database) {
+  return drizzle(binding, { schema })
+}
+
+export type AppDb = ReturnType<typeof createD1Db>
+`
+                : `${h}
+
+export const db = null
+export const client = null
+`
   const rootServerEntry = needsSocketIo && isBunRuntimeTarget
     ? `${h}
 
@@ -222,10 +350,8 @@ import { defineConfig } from 'drizzle-kit'
 export default defineConfig({
   schema: './src/db/schema.ts',
   out: './src/db/migrations',
-  dialect: '${database === 'postgres' ? 'postgresql' : database === 'mysql' ? 'mysql' : 'sqlite'}',
-  dbCredentials: {
-    url: process.env.DATABASE_URL!,
-  },
+  dialect: '${drizzleDialect}',
+${drizzleCredentialsBlock}
 })
 `,
 
@@ -238,8 +364,7 @@ PORT=4000
 APP_URL=http://localhost:4000
 APP_KEY=change-me-to-a-random-secret
 
-DATABASE_URL=postgresql://postgres:password@localhost:5432/${projectName.replace(/-/g, '_')}
-JWT_SECRET=change-me-to-a-random-jwt-secret
+${dbEnvBlock}JWT_SECRET=change-me-to-a-random-jwt-secret
 CLIENT_URL=http://localhost:4000
 ALLOWED_ORIGINS=http://localhost:4000
 ${queue !== 'none' ? `QUEUE_DRIVER=${queue}
@@ -269,6 +394,10 @@ APP_URL=
 APP_KEY=
 
 DATABASE_URL=
+DATABASE_AUTH_TOKEN=
+D1_ACCOUNT_ID=
+D1_DATABASE_ID=
+D1_TOKEN=
 JWT_SECRET=
 CLIENT_URL=
 ALLOWED_ORIGINS=
@@ -449,17 +578,7 @@ export default generateOpenApiSpec(
         }
       : {}),
 
-    'src/db/index.ts': `${h}
-
-/**
- * Database bootstrap placeholder.
- *
- * Use standard Drizzle ORM setup from the official docs:
- * https://orm.drizzle.team/docs/overview
- */
-export const db = null
-export const client = null
-`,
+    'src/db/index.ts': dbBootstrap,
 
     ...(queue === 'bullmq'
       ? {
@@ -844,6 +963,11 @@ export {}
           '@unhead/vue': 'latest',
           '@nuxt/ui': 'latest',
           'drizzle-orm': 'latest',
+          ...(usesPostgresJs ? { postgres: 'latest' } : {}),
+          ...(usesCockroach ? { pg: 'latest' } : {}),
+          ...((usesMysql || usesSingleStore) ? { mysql2: 'latest' } : {}),
+          ...(usesLibsql ? { '@libsql/client': 'latest' } : {}),
+          ...(usesMssql ? { mssql: 'latest' } : {}),
           ...(queue === 'bullmq' ? { bullmq: 'latest' } : {}),
           ...(needsIoredis ? { ioredis: 'latest' } : {}),
           ...(needsRedisClient ? { redis: 'latest' } : {}),
@@ -866,6 +990,7 @@ export {}
           'unplugin-vue-components': 'latest',
           vite: 'latest',
           'drizzle-kit': 'latest',
+          ...(usesCockroach ? { '@types/pg': 'latest' } : {}),
           '@types/bun': 'latest',
         },
       },

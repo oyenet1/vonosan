@@ -24,7 +24,7 @@ export interface VonoAppOptions {
   config: VonosanConfig
   openApiSpec?: Record<string, unknown>
   /** Pass import.meta.glob('/src/modules/*\/*.routes.ts', { eager: true }) here */
-  modules?: Record<string, { default?: unknown }>
+  modules?: Record<string, { default?: Hono }>
 }
 
 // ─── Factory ────────────────────────────────────────────────────────
@@ -40,13 +40,8 @@ export interface VonoAppOptions {
  *
  * Usage in your project's src/index.ts:
  * ```ts
-<<<<<<< HEAD:packages/vono/src/server/app-template.ts
- * import { createVonoApp } from 'vonosan/server'
- * import config from '../vono.config.js'
-=======
  * import { createVonosanApp } from 'vonosan/server'
  * import config from '../vonosan.config.js'
->>>>>>> v0.1.0:packages/vonosan/src/server/app-template.ts
  * import openApiSpec from './openapi.js'
  *
  * const app = createVonosanApp({ config, openApiSpec })
@@ -127,7 +122,7 @@ export function createVonosanApp(options: VonoAppOptions): Hono<{ Variables: App
   // Auto-discover and mount all *.routes.ts files from src/modules/
   // The consuming project passes its import.meta.glob result via options
   if (options.modules) {
-    autoRegisterRoutes(api, options.modules).catch((err) => {
+    autoRegisterRoutes(api as unknown as Hono, options.modules as Record<string, { default?: Hono }>).catch((err) => {
       Logger.error('[vonosan] autoRegisterRoutes failed', { error: String(err) })
     })
   }

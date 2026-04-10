@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * ──────────────────────────────────────────────────────────────────
  * 🏢 Company Name: Bonifade Technologies
@@ -8,14 +10,8 @@
  * ──────────────────────────────────────────────────────────────────
  */
 
-#!/usr/bin/env node
-
 /**
-<<<<<<< HEAD
- * @vonosan/cli — Artisan-style CLI for the Vono framework.
-=======
  * @vonosan/cli — Artisan-style CLI for the Vonosan framework.
->>>>>>> v0.1.0
  *
  * Command router: maps `vonosan <command>` to the appropriate handler.
  */
@@ -201,13 +197,8 @@ function printHelp(): void {
   vonosan make:helper <name>      Generate shared helper
 
 \x1b[33mModule Installer:\x1b[0m
-<<<<<<< HEAD
-  vono add <module>            Install @vonosan/<module> and update config
-  vono add <module> --eject    Copy module source into src/modules/<module>/
-=======
   vonosan add <module>            Install @vonosan/<module> and update config
   vonosan add <module> --eject    Copy module source into src/modules/<module>/
->>>>>>> v0.1.0
 
 \x1b[33mJobs:\x1b[0m
   vonosan jobs:run <name>         Execute a named cron job immediately
@@ -228,7 +219,7 @@ async function main(): Promise<void> {
 
   if (!handler) {
     process.stderr.write(`\x1b[31mUnknown command: "${command}"\x1b[0m\n`)
-    process.stderr.write(`Run \x1b[1mvono --help\x1b[0m to see available commands.\n`)
+    process.stderr.write(`Run \x1b[1mvonosan --help\x1b[0m to see available commands.\n`)
     process.exit(1)
   }
 

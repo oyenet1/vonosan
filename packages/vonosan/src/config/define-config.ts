@@ -18,13 +18,8 @@ let _resolvedConfig: VonosanConfig | null = null
  *
  * Place this in `vonosan.config.ts` at the project root:
  * ```ts
-<<<<<<< HEAD:packages/vono/src/config/define-config.ts
- * import { defineVonoConfig } from 'vonosan'
- * export default defineVonoConfig({ ... })
-=======
  * import { defineVonosanConfig } from 'vonosan'
  * export default defineVonosanConfig({ ... })
->>>>>>> v0.1.0:packages/vonosan/src/config/define-config.ts
  * ```
  */
 export function defineVonosanConfig(config: VonosanConfig): VonosanConfig {

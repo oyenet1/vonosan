@@ -28,7 +28,20 @@ export interface WizardAnswers {
     | 'netlify'
     | 'deno'
     | 'aws-lambda'
-  database: 'postgres' | 'mysql' | 'sqlite' | 'none'
+  database:
+    | 'postgres'
+    | 'mysql'
+    | 'sqlite'
+    | 'turso'
+    | 'singlestore'
+    | 'mssql'
+    | 'cockroachdb'
+    | 'neon'
+    | 'supabase'
+    | 'vercel-postgres'
+    | 'xata'
+    | 'd1'
+    | 'none'
   queue: 'bullmq' | 'cloudflare-queues' | 'none'
   queueRedisDriver: 'ioredis' | 'redis' | 'upstash-redis' | 'none'
   cache: 'upstash' | 'ioredis' | 'kv' | 'none'
@@ -131,8 +144,19 @@ export async function runWizard(
     message: 'Database',
     options: [
       { value: 'postgres', label: 'PostgreSQL', hint: 'recommended' },
+      { value: 'neon', label: 'Neon (PostgreSQL)' },
+      { value: 'supabase', label: 'Supabase (PostgreSQL)' },
+      { value: 'vercel-postgres', label: 'Vercel Postgres' },
+      { value: 'xata', label: 'Xata Postgres' },
+      { value: 'cockroachdb', label: 'CockroachDB' },
       { value: 'mysql', label: 'MySQL' },
+      { value: 'singlestore', label: 'SingleStore' },
       { value: 'sqlite', label: 'SQLite' },
+      { value: 'turso', label: 'Turso (libSQL)' },
+      { value: 'mssql', label: 'MSSQL' },
+      ...((deploymentTarget === 'cloudflare-workers' || deploymentTarget === 'cloudflare-pages')
+        ? [{ value: 'd1', label: 'Cloudflare D1' }]
+        : []),
       { value: 'none', label: 'None' },
     ],
   })

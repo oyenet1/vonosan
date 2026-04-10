@@ -29,6 +29,10 @@ export function applyModulesToViteConfig(
   config: UserConfig,
 ): UserConfig {
   const merged: UserConfig = { ...config }
+  const getDefineEntries = (): Record<string, string> =>
+    typeof merged.define === 'object' && merged.define !== null
+      ? merged.define as Record<string, string>
+      : {}
 
   // Collect all server-side auto-imports from modules
   const serverImports: Array<{ from: string; imports: string[] }> = []
@@ -51,7 +55,7 @@ export function applyModulesToViteConfig(
   // here we attach the collected imports as metadata for the plugin to consume.
   if (serverImports.length > 0 || clientImports.length > 0) {
     merged.define = {
-      ...merged.define,
+      ...getDefineEntries(),
       '__VONO_MODULE_SERVER_IMPORTS__': JSON.stringify(serverImports),
       '__VONO_MODULE_CLIENT_IMPORTS__': JSON.stringify(clientImports),
     }
@@ -61,7 +65,7 @@ export function applyModulesToViteConfig(
   const modulePages = modules.flatMap((m) => m.pages ?? [])
   if (modulePages.length > 0) {
     merged.define = {
-      ...merged.define,
+      ...getDefineEntries(),
       '__VONO_MODULE_PAGES__': JSON.stringify(modulePages),
     }
     Logger.info(`[vonosan] Registered ${modulePages.length} page(s) from modules`)
@@ -71,7 +75,7 @@ export function applyModulesToViteConfig(
   const moduleRoutes = modules.flatMap((m) => m.routes ?? [])
   if (moduleRoutes.length > 0) {
     merged.define = {
-      ...merged.define,
+      ...getDefineEntries(),
       '__VONO_MODULE_ROUTES__': JSON.stringify(moduleRoutes),
     }
     Logger.info(`[vonosan] Registered ${moduleRoutes.length} route(s) from modules`)
