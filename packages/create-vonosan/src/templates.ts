@@ -696,11 +696,249 @@ export function createRouter() {
 `,
 
           'src/modules/home/index.page.vue': `<template>
-  <main>
-    <h1>${projectName}</h1>
-    <p>Welcome to your Vonosan app.</p>
-  </main>
+  <div class="landing">
+    <header class="topbar">
+      <p class="brand">${projectName}</p>
+      <nav class="menu">
+        <a href="#features">Features</a>
+        <a href="#why">Why Vonosan</a>
+        <a href="#start">Get Started</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="start">
+      <p class="eyebrow">Welcome to Vonosan</p>
+      <h1>Build fast apps for every age and every audience.</h1>
+      <p class="subtext">
+        ${projectName} ships with sensible full-stack defaults, beautiful UI foundations,
+        and a module-first architecture that scales cleanly.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/auth/register">Create Account</a>
+        <a class="btn btn-ghost" href="#features">Explore Features</a>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <article class="card">
+        <h2>Fast by Default</h2>
+        <p>
+          Vite, Vue, and a typed backend workflow give you rapid local iteration and confident releases.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Secure Foundations</h2>
+        <p>
+          Auth-ready route patterns, environment helpers, and clear module boundaries reduce mistakes.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Readable Structure</h2>
+        <p>
+          Modules keep routes, services, and UI close together so teams of all experience levels can move quickly.
+        </p>
+      </article>
+    </section>
+
+    <section class="why" id="why">
+      <h2>Designed for everyone</h2>
+      <p>
+        This starter keeps language clear, spacing comfortable, and interactions simple so children,
+        adults, and seniors can navigate with confidence.
+      </p>
+    </section>
+
+    <footer class="footer">
+      <p>Made with Vonosan</p>
+      <small>Start building from src/modules and make it yours.</small>
+    </footer>
+  </div>
 </template>
+
+<style scoped>
+.landing {
+  --bg-a: #f8fafc;
+  --bg-b: #eef6ff;
+  --text: #10243e;
+  --muted: #4a5f7a;
+  --card: #ffffff;
+  --accent: #0b6df6;
+  --accent-strong: #084fb2;
+  min-height: 100vh;
+  padding: 1.25rem;
+  color: var(--text);
+  font-family: "Space Grotesk", "Nunito", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(1200px 420px at 90% -10%, rgba(11, 109, 246, 0.18), transparent 60%),
+    radial-gradient(800px 380px at 8% 12%, rgba(255, 140, 66, 0.16), transparent 60%),
+    linear-gradient(180deg, var(--bg-a), var(--bg-b));
+}
+
+.topbar {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.menu {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.menu a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.menu a:hover {
+  color: var(--text);
+}
+
+.hero {
+  max-width: 1080px;
+  margin: 3.5rem auto 2rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent-strong);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+}
+
+.hero h1 {
+  margin: 0.6rem 0 0;
+  max-width: 16ch;
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+  line-height: 1.1;
+}
+
+.subtext {
+  margin-top: 0.9rem;
+  max-width: 62ch;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.actions {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.68rem 1.05rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+}
+
+.btn-ghost {
+  background: rgba(16, 36, 62, 0.08);
+  color: var(--text);
+}
+
+.features {
+  max-width: 1080px;
+  margin: 1rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid rgba(16, 36, 62, 0.08);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 10px 24px rgba(16, 36, 62, 0.07);
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.07rem;
+}
+
+.card p {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.why {
+  max-width: 1080px;
+  margin: 1.15rem auto 0;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(16, 36, 62, 0.08);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.why h2 {
+  margin: 0;
+  font-size: 1.18rem;
+}
+
+.why p {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.footer {
+  max-width: 1080px;
+  margin: 1.25rem auto 0;
+  padding: 1rem 0 1.5rem;
+  color: var(--muted);
+}
+
+.footer p {
+  margin: 0;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.footer small {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 900px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+</style>
 `,
 
           'src/route-rules.ts': `${h}

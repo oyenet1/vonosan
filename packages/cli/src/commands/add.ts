@@ -68,13 +68,26 @@ function addFrontendScaffold(): void {
   </body>
 </html>
 `,
-    'vite.config.ts': `import { defineConfig } from 'vite'
+    'vite.config.ts': `import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { vonosan } from 'vonosan/vite'
 import vonoConfig from './vonosan.config.js'
 
-export default defineConfig({
-  plugins: [vue(), ...vonosan(vonoConfig)],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  const port = Number(env.PORT ?? '4000')
+
+  return {
+    plugins: [vue(), ...vonosan(vonoConfig)],
+    server: {
+      host: '0.0.0.0',
+      port,
+    },
+    preview: {
+      host: '0.0.0.0',
+      port,
+    },
+  }
 })
 `,
     'src/App.vue': `<template>
@@ -101,6 +114,13 @@ export function createApp() {
 
   return { app, pinia, head, router }
 }
+
+if (!import.meta.env.SSR) {
+  const { app, router } = createApp()
+  router.isReady().then(() => {
+    app.mount('#app')
+  })
+}
 `,
     'src/router.ts': `import { createRouter as _createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
 
@@ -119,11 +139,146 @@ export function createRouter() {
 }
 `,
     'src/modules/home/index.page.vue': `<template>
-  <main>
-    <h1>${projectName}</h1>
-    <p>Welcome to your Vonosan app.</p>
-  </main>
+  <div class="landing">
+    <header class="topbar">
+      <p class="brand">${projectName}</p>
+      <nav class="menu">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">Welcome to Vonosan</p>
+      <h1>Build fast apps for every age and every audience.</h1>
+      <p class="subtext">
+        This starter gives you a clear structure, friendly defaults, and room to grow from MVP to production.
+      </p>
+    </section>
+
+    <section class="features" id="features">
+      <article class="card">
+        <h2>Fast Setup</h2>
+        <p>Vue + Vite + typed full-stack conventions so you can ship features quickly.</p>
+      </article>
+      <article class="card">
+        <h2>Clean Modules</h2>
+        <p>Organize pages and APIs by module for better teamwork and maintainability.</p>
+      </article>
+      <article class="card">
+        <h2>Production Ready</h2>
+        <p>Built-in route rules, health routes, and straightforward deployment flow.</p>
+      </article>
+    </section>
+
+    <footer class="footer" id="about">
+      <p>Made with Vonosan</p>
+      <small>Start from src/modules and make it yours.</small>
+    </footer>
+  </div>
 </template>
+
+<style scoped>
+.landing {
+  min-height: 100vh;
+  padding: 1.25rem;
+  color: #10243e;
+  font-family: "Space Grotesk", "Nunito", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(1000px 400px at 90% -10%, rgba(11, 109, 246, 0.18), transparent 60%),
+    linear-gradient(180deg, #f8fafc, #eef6ff);
+}
+.topbar {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  margin: 0;
+  font-weight: 700;
+}
+.menu {
+  display: flex;
+  gap: 0.8rem;
+}
+.menu a {
+  text-decoration: none;
+  color: #4a5f7a;
+  font-weight: 600;
+}
+.hero {
+  max-width: 1080px;
+  margin: 3rem auto 0;
+}
+.eyebrow {
+  margin: 0;
+  color: #0b6df6;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 0.6rem 0 0;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+}
+.subtext {
+  max-width: 60ch;
+  color: #4a5f7a;
+  line-height: 1.6;
+}
+.features {
+  max-width: 1080px;
+  margin: 1.2rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+.card {
+  background: #fff;
+  border: 1px solid rgba(16, 36, 62, 0.1);
+  border-radius: 16px;
+  padding: 1rem;
+}
+.card h2 {
+  margin: 0;
+}
+.card p {
+  margin: 0.5rem 0 0;
+  color: #4a5f7a;
+  line-height: 1.5;
+}
+.footer {
+  max-width: 1080px;
+  margin: 1.4rem auto 0;
+  color: #4a5f7a;
+}
+.footer p {
+  margin: 0;
+  color: #10243e;
+  font-weight: 700;
+}
+@media (max-width: 900px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+`,
+    'src/modules/health/health.routes.ts': `import { Hono } from 'hono'
+
+const healthRouter = new Hono()
+
+healthRouter.get('/', (c) => {
+  return c.json({
+    ok: true,
+    service: '${projectName}',
+    timestamp: new Date().toISOString(),
+  })
+})
+
+export default healthRouter
 `,
     'src/route-rules.ts': `import type { RouteRules } from 'vonosan/server/route-rules'
 
@@ -156,15 +311,15 @@ declare module '*.vue' {
   }
 
   pkg.scripts = pkg.scripts ?? {}
-  pkg.scripts.dev = 'vite --host 0.0.0.0 --port 4000'
+  pkg.scripts.dev = 'vite'
   pkg.scripts.build = 'vite build'
-  pkg.scripts.preview = 'vite preview --host 0.0.0.0 --port 4000'
+  pkg.scripts.preview = 'vite preview'
 
   writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8')
   process.stdout.write(green('  Updated package.json scripts for frontend runtime\n'))
 
   try {
-    run('bun add vue vue-router pinia @unhead/vue @nuxt/ui')
+    run('bun add vue vue-router pinia @unhead/vue @unhead/ssr @nuxt/ui')
     run('bun add -d vite @vitejs/plugin-vue')
     process.stdout.write(green('✔ Frontend dependencies installed\n'))
   } catch {
@@ -174,6 +329,8 @@ declare module '*.vue' {
   }
 
   process.stdout.write(green('✔ Frontend scaffold added. Run bun run dev\n'))
+  process.stdout.write(green('✔ Health route scaffold added at src/modules/health/health.routes.ts\n'))
+  process.stdout.write(green('  Health endpoint: /api/v1/health/\n'))
 }
 
 /**

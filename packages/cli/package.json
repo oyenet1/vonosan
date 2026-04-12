@@ -1,6 +1,6 @@
 {
   "name": "@vonosan/cli",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "type": "module",
   "description": "Vono Artisan-style scaffolding CLI",
   "repository": {

@@ -14,7 +14,7 @@ import { execa } from 'execa'
 import { runWizard } from './wizard.js'
 import { scaffoldProject } from './scaffold.js'
 
-const CLI_VERSION = '0.2.7'
+const CLI_VERSION = '0.2.8'
 
 // ─── Helpers ─────────────────────────────────────────────────────────
 
