@@ -233,6 +233,7 @@ export async function runWizard(
       { value: 'apiDocs', label: 'API docs (Swagger/Scalar)' },
       { value: 'saas', label: 'SaaS mode (multi-tenant)' },
     ],
+    initialValues: ['apiDocs'],
     required: false,
   })
 
