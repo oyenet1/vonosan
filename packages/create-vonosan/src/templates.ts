@@ -428,7 +428,7 @@ export default defineVonosanConfig({
     swagger: true,
     fiberplane: false,
     scalar: true,
-    openapi: '/openapi.json',
+    openapi: '/api/openapi.json',
   },` : ''}
   ${testing !== 'none' ? `test: { driver: '${testing}' },` : ''}
 })

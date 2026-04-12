@@ -176,10 +176,10 @@ function buildCorsMiddleware(config: VonosanConfig) {
 
 /**
  * Mount API documentation endpoints:
- *   GET /openapi.json  — raw OpenAPI 3.1 spec
- *   GET /docs          — Swagger UI
- *   GET /reference     — Scalar API reference
- *   GET /fp/*          — Fiberplane dev tools
+ *   GET /openapi.json and /api/openapi.json  — raw OpenAPI 3.1 spec
+ *   GET /docs and /api/docs                  — Swagger UI
+ *   GET /reference and /api/reference        — Scalar API reference
+ *   GET /fp/* and /api/fp/*                  — Fiberplane dev tools
  */
 function mountDocEndpoints(
   app: Hono<{ Variables: AppVariables; Bindings: Env }>,
@@ -187,43 +187,76 @@ function mountDocEndpoints(
   openApiSpec?: Record<string, unknown>,
 ): void {
   const docsConfig = config.docs!
+  const specUrl = docsConfig.openapi ?? '/api/openapi.json'
 
-  // ── GET /openapi.json ────────────────────────────────────────────
-  app.get('/openapi.json', (c) => {
+  const buildSpecResponse = () => {
     if (openApiSpec) {
-      return c.json(openApiSpec)
+      return openApiSpec
     }
     // Fallback: minimal spec
-    return c.json({
+    return {
       openapi: '3.1.0',
       info: { title: config.app.name, version: '1.0.0' },
       paths: {},
-    })
+    }
+  }
+
+  // ── GET /openapi.json and /api/openapi.json ─────────────────────
+  app.get('/openapi.json', (c) => {
+    return c.json(buildSpecResponse())
   })
 
-  // ── GET /docs (Swagger UI) ───────────────────────────────────────
+  app.get('/api/openapi.json', (c) => {
+    return c.json(buildSpecResponse())
+  })
+
+  // ── GET /docs and /api/docs (Swagger UI) ─────────────────────────
   if (docsConfig.swagger) {
     app.get('/docs', (c) => {
-      const html = buildSwaggerHtml(docsConfig.openapi ?? '/openapi.json')
+      const html = buildSwaggerHtml(specUrl)
+      return c.html(html)
+    })
+
+    app.get('/api/docs', (c) => {
+      const html = buildSwaggerHtml(specUrl)
       return c.html(html)
     })
   }
 
-  // ── GET /reference (Scalar) ──────────────────────────────────────
+  // ── GET /reference and /api/reference (Scalar) ───────────────────
   if (docsConfig.scalar) {
     app.get('/reference', (c) => {
-      const html = buildScalarHtml(docsConfig.openapi ?? '/openapi.json', config.app.name)
+      const html = buildScalarHtml(specUrl, config.app.name)
+      return c.html(html)
+    })
+
+    app.get('/api/reference', (c) => {
+      const html = buildScalarHtml(specUrl, config.app.name)
       return c.html(html)
     })
   }
 
-  // ── GET /fp/* (Fiberplane) ───────────────────────────────────────
+  // ── GET /fp* and /api/fp* (Fiberplane) ───────────────────────────
   if (docsConfig.fiberplane) {
+    const fpResponse = {
+      message: 'Fiberplane integration — mount @fiberplane/hono in your project',
+      docs: 'https://fiberplane.com/docs',
+    }
+
+    app.get('/fp', (c) => {
+      return c.json(fpResponse)
+    })
+
     app.get('/fp/*', (c) => {
-      return c.json({
-        message: 'Fiberplane integration — mount @fiberplane/hono in your project',
-        docs: 'https://fiberplane.com/docs',
-      })
+      return c.json(fpResponse)
+    })
+
+    app.get('/api/fp', (c) => {
+      return c.json(fpResponse)
+    })
+
+    app.get('/api/fp/*', (c) => {
+      return c.json(fpResponse)
     })
   }
 }

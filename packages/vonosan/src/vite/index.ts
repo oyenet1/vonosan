@@ -66,7 +66,8 @@ function createDevServerPlugin(): Plugin {
       return {
         plugins: [
           devServer({
-            entry: './index.ts',
+            // Use Hono app entry so /api routes are served by Hono in dev.
+            entry: './src/app.ts',
             exclude: [
               /.*\.vue($|\?)/,
               /^\/(public|assets|static)\/.+/,

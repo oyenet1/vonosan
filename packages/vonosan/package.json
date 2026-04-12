@@ -1,6 +1,6 @@
 {
   "name": "vonosan",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "type": "module",
   "description": "Vonosan core runtime — config, composables, SSR helpers, Vite plugin",
   "license": "MIT",

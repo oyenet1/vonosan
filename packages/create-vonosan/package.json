@@ -1,6 +1,6 @@
 {
   "name": "create-vonosan",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "type": "module",
   "description": "Create a new Vonosan project",
   "license": "MIT",
