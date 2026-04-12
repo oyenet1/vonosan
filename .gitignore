@@ -11,6 +11,14 @@ packages/*/dist/
 packages/*/node_modules/
 *.tsbuildinfo
 
+# Prevent build artifacts in src/ directories
+packages/*/src/**/*.js
+packages/*/src/**/*.js.map
+packages/*/src/**/*.d.ts.map
+# Keep legitimate .d.ts source files (vue-shim.d.ts, peer-types.d.ts, etc.)
+# Only ignore generated .d.ts in specific dirs
+packages/cli/src/**/*.d.ts
+
 # Release/package artifacts
 release-packages/
 packages/*.tgz

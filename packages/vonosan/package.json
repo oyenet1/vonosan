@@ -41,6 +41,10 @@
       "import": "./dist/server/route-rules.js",
       "types": "./dist/server/route-rules.d.ts"
     },
+    "./client/nuxt-ui": {
+      "import": "./dist/client/nuxt-ui/index.js",
+      "types": "./dist/client/nuxt-ui/index.d.ts"
+    },
     "./client": {
       "import": "./dist/client/index.js",
       "types": "./dist/client/index.d.ts"

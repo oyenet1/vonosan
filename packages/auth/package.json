@@ -27,6 +27,7 @@
     "dev": "tsc -p tsconfig.json --watch"
   },
   "peerDependencies": {
+    "@hono/zod-validator": ">=0.7.0",
     "drizzle-orm": ">=0.44.0",
     "hono": ">=4.8.0",
     "vue": ">=3.5.0",
