@@ -626,11 +626,18 @@ import { createVonosanApp, registerDbFactory } from 'vonosan/server'
 import type { Hono } from 'hono'
 import config from '../vonosan.config.js'
 import { createDb } from './db/index.js'
+import healthRouter from './modules/health/health.routes.js'
+${auth ? "import authRouter from './modules/auth/auth.routes.js'" : ''}
 ${needsNativeWs ? "import { registerNativeWebSocketRoutes } from './shared/ws/native.server.js'" : ''}
 ${websocketDriver === 'cloudflare-websocket' ? "import { registerCloudflareWebSocketRoutes } from './shared/ws/cloudflare.server.js'" : ''}
 ${apiDocs ? "import openApiSpec from './openapi.js'" : ''}
 
-const modules = import.meta.glob('./modules/*/*.routes.ts', { eager: true }) as Record<string, { default?: Hono }>
+${isApiOnly
+  ? `const modules: Record<string, { default?: Hono }> = {
+  './modules/health/health.routes.ts': { default: healthRouter },
+  ${auth ? "'./modules/auth/auth.routes.ts': { default: authRouter }," : ''}
+}`
+  : "const modules = import.meta.glob('./modules/*/*.routes.ts', { eager: true }) as Record<string, { default?: Hono }>"}
 
 registerDbFactory({ createDb })
 
