@@ -37,7 +37,7 @@ This spec captures all confirmed issues and their fixes.
 
 #### Acceptance Criteria
 1. THE `vonosan` package.json SHALL list `node-cron` as a dependency (it already does, was fixed in 0.2.2).
-2. THE `@vonosan/auth` package.json SHALL list `@hono/zod-validator` as a dependency (not just devDependency), since it's imported in published source.
+2. THE `@vonosan/auth` package.json SHALL list `@hono/zod-validator` as a peer dependency (not just devDependency), since it's imported in published source and resolved by consuming apps.
 3. THE `vonosan` package.json SHALL list `vite` as a peer dependency (for the vite plugin subpath).
 4. THE `vonosan` package.json SHALL list `vue-router` as a peer dependency (already done).
 
