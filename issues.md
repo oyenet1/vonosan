@@ -216,3 +216,4 @@ Suggested framework fix:
 3. Fix `setupNuxtUI` import contract to default plugin import.
 4. Resolve `node-cron` packaging/build contract so clean builds pass.
 5. Harden starter TypeScript baseline (`.d.ts` includes and environment typing).
+OK

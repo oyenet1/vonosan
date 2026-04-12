@@ -28,7 +28,8 @@ export interface SmtpOptions {
  */
 export async function send(options: SendEmailOptions & SmtpOptions): Promise<void> {
   // Dynamic import — nodemailer is a Node.js-only dependency
-  const nodemailer = await import('nodemailer').catch(() => {
+  const nodemailerModule = 'nodemailer'
+  const nodemailer = await import(/* @vite-ignore */ nodemailerModule).catch(() => {
     throw new Error('[email:smtp] nodemailer is not installed. Run: bun add nodemailer')
   })
 

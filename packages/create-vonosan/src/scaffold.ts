@@ -40,6 +40,19 @@ export function scaffoldProject(answers: WizardAnswers, targetDir: string): void
     writeFileSync(absPath, content, 'utf8')
   }
 
+  // Safety fallback: ensure the default home page exists for full-stack apps.
+  if (answers.projectType === 'fullstack') {
+    const homePagePath = join(absTarget, 'src/modules/home/index.page.vue')
+    if (!existsSync(homePagePath)) {
+      mkdirSync(dirname(homePagePath), { recursive: true })
+      writeFileSync(
+        homePagePath,
+        `<template>\n  <main>\n    <h1>${answers.projectName}</h1>\n    <p>Welcome to your Vonosan app.</p>\n  </main>\n</template>\n`,
+        'utf8',
+      )
+    }
+  }
+
   // Create standard empty directories
   const emptyDirs = [
     'src/modules',

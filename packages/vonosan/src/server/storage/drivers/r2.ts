@@ -33,7 +33,8 @@ export class R2Driver implements StorageDriver {
   constructor(private readonly config: R2Config) {}
 
   async upload(file: File, options?: UploadOptions): Promise<UploadResult> {
-    const { S3Client, PutObjectCommand } = await import('@aws-sdk/client-s3').catch(() => {
+    const awsSdkModule = '@aws-sdk/client-s3'
+    const { S3Client, PutObjectCommand } = await import(/* @vite-ignore */ awsSdkModule).catch(() => {
       throw new Error('[storage:r2] @aws-sdk/client-s3 is not installed. Run: bun add @aws-sdk/client-s3')
     })
 
@@ -67,7 +68,8 @@ export class R2Driver implements StorageDriver {
   }
 
   async delete(key: string): Promise<void> {
-    const { S3Client, DeleteObjectCommand } = await import('@aws-sdk/client-s3').catch(() => {
+    const awsSdkModule = '@aws-sdk/client-s3'
+    const { S3Client, DeleteObjectCommand } = await import(/* @vite-ignore */ awsSdkModule).catch(() => {
       throw new Error('[storage:r2] @aws-sdk/client-s3 is not installed.')
     })
 

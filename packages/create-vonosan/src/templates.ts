@@ -46,10 +46,19 @@ export function generateTemplates(answers: WizardAnswers): Record<string, string
       : deploymentTarget === 'bun-docker'
         ? 'bun'
         : deploymentTarget
-  const startCommand =
+  const fullstackStartCommand =
     deploymentTarget === 'nodejs' || deploymentTarget === 'nodejs-docker'
       ? 'node dist/server/index.js'
       : 'bun dist/server/index.js'
+  const apiStartCommand =
+    deploymentTarget === 'nodejs' || deploymentTarget === 'nodejs-docker'
+      ? 'node dist/index.js'
+      : 'bun dist/index.js'
+  const startCommand = isApiOnly ? apiStartCommand : fullstackStartCommand
+  const apiDevCommand =
+    deploymentTarget === 'bun' || deploymentTarget === 'bun-docker'
+      ? 'bun --watch index.ts'
+      : 'tsx watch index.ts'
   const needsIoredis =
     cache === 'ioredis' ||
     (queue === 'bullmq' && (queueRedisDriver === 'ioredis' || queueRedisDriver === 'upstash-redis'))
@@ -333,16 +342,21 @@ export default defineVonosanConfig({
 })
 `,
 
-    'vite.config.ts': `${h}
+    ...(!isApiOnly
+      ? {
+          'vite.config.ts': `${h}
 
 import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 import { vonosan } from 'vonosan/vite'
 import vonoConfig from './vonosan.config.js'
 
 export default defineConfig({
-  plugins: [vonosan(vonoConfig)],
+  plugins: [vue(), ...vonosan(vonoConfig)],
 })
 `,
+        }
+      : {}),
 
     'drizzle.config.ts': `${h}
 
@@ -966,9 +980,16 @@ export {}
         version: '0.1.0',
         type: 'module',
         scripts: {
-          dev: 'vite --host 0.0.0.0 --port 4000',
-          build: 'vite build',
-          preview: 'vite preview --host 0.0.0.0 --port 4000',
+          ...(isApiOnly
+            ? {
+                dev: apiDevCommand,
+                build: 'tsc -p tsconfig.json',
+              }
+            : {
+                dev: 'vite --host 0.0.0.0 --port 4000',
+                build: 'vite build',
+                preview: 'vite preview --host 0.0.0.0 --port 4000',
+              }),
           start: startCommand,
           'vono:cli': 'node ./scripts/vono-cli.mjs',
           'migrate:run': 'node ./scripts/vono-cli.mjs migrate:run',
@@ -1012,7 +1033,13 @@ export {}
         },
         devDependencies: {
           typescript: 'latest',
-          vite: 'latest',
+          ...(!isApiOnly
+            ? {
+                vite: 'latest',
+                '@vitejs/plugin-vue': 'latest',
+              }
+            : {}),
+          ...(isApiOnly && apiDevCommand === 'tsx watch index.ts' ? { tsx: 'latest' } : {}),
           'drizzle-kit': 'latest',
           ...(usesCockroach ? { '@types/pg': 'latest' } : {}),
           '@types/bun': 'latest',
@@ -1036,7 +1063,7 @@ export {}
             '@@ws-adapter': ['./node_modules/@vonosan/ws/adapters/bun.js'],
           },
         },
-        include: ['src/**/*', '*.d.ts', 'vonosan.config.ts'],
+        include: ['src/**/*', 'index.ts', '*.d.ts', 'vonosan.config.ts'],
         exclude: ['node_modules', 'dist'],
       },
       null,
