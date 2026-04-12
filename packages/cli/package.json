@@ -1,6 +1,6 @@
 {
   "name": "@vonosan/cli",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "type": "module",
   "description": "Vono Artisan-style scaffolding CLI",
   "repository": {
@@ -16,8 +16,7 @@
     "access": "public"
   },
   "files": [
-    "dist",
-    "templates"
+    "dist"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -38,6 +37,6 @@
     "@types/node": "25.5.2",
     "fast-check": "4.6.0",
     "typescript": "5.8.3",
-    "vonosan": "0.2.2"
+    "vonosan": "0.2.5"
   }
 }

@@ -1012,6 +1012,7 @@ export {}
                 'vue-router': 'latest',
                 pinia: 'latest',
                 '@unhead/vue': 'latest',
+                '@unhead/ssr': 'latest',
                 '@nuxt/ui': 'latest',
               }
             : {}),

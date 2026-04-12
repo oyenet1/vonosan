@@ -12,7 +12,8 @@
 export { createVonosanApp } from './app-template.js'
 export type { VonoAppOptions } from './app-template.js'
 export { configProvider } from './middleware/configProvider.js'
-export { dbProvider } from './middleware/dbProvider.js'
+export { dbProvider, registerDbFactory } from './middleware/dbProvider.js'
+export type { DbFactory } from './middleware/dbProvider.js'
 export { ApiResponse, success, error } from '../shared/utils/response.js'
 export { buildPaginationMeta } from '../shared/utils/pagination.js'
 export { generateId, prefixedId } from '../shared/utils/id.js'
@@ -72,3 +73,18 @@ export {
   policy,
 } from './auth/index.js'
 export type { GateHandler, PolicyHandler } from './auth/index.js'
+
+// Env Validation
+export { defineEnv, validateEnvAtStartup } from './env-validation/index.js'
+export type { DefineEnvOptions } from './env-validation/index.js'
+
+// i18n
+export { detectLocale, loadTranslations, t, getLocale, setLocale } from './i18n/index.js'
+
+// SSR Renderer
+export { render } from './renderer.js'
+export { renderStream, streamResponse } from './stream-renderer.js'
+
+// SEO
+export { IMMUTABLE_CACHE_HEADER, buildRobotsTxt } from './seo.js'
+export type { RobotsConfig } from './seo.js'

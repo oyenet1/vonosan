@@ -1,6 +1,6 @@
 {
   "name": "vonosan",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "type": "module",
   "description": "Vonosan core runtime — config, composables, SSR helpers, Vite plugin",
   "license": "MIT",
@@ -74,6 +74,7 @@
     "unplugin-vue-components": "latest"
   },
   "peerDependencies": {
+    "@unhead/ssr": ">=2.0.0",
     "@unhead/vue": ">=2.0.0",
     "@nuxt/ui": ">=4.0.0",
     "drizzle-orm": ">=0.44.0",
@@ -85,6 +86,9 @@
     "zod": ">=4.0.0"
   },
   "peerDependenciesMeta": {
+    "@unhead/ssr": {
+      "optional": true
+    },
     "@unhead/vue": {
       "optional": true
     },

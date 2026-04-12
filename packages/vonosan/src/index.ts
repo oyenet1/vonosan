@@ -15,3 +15,7 @@ export { env, envNumber, envBool, envRequired } from './config/env-helpers.js'
 export type { PublicVonosanConfig } from './config/use-config.js'
 export type { VonosanConfig } from './types/index.js'
 export * from './types/index.js'
+
+// Module system
+export { defineVonosanModule, registerModule, getModules, runHook, clearRegistry } from './module-system/index.js'
+export type { VonosanModuleDefinition, VonosanModuleHooks, VonosanLifecycleHook } from './module-system/index.js'

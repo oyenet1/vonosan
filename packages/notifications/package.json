@@ -1,6 +1,6 @@
 {
   "name": "@vonosan/notifications",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "type": "module",
   "description": "Vono in-app notification module",
   "repository": {
@@ -37,6 +37,6 @@
     "drizzle-orm": "0.44.5",
     "hono": "4.8.10",
     "typescript": "5.8.3",
-    "vonosan": "0.2.2"
+    "vonosan": "0.2.5"
   }
 }

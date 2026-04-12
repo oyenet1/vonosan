@@ -229,7 +229,16 @@ function createVonoCorePlugin(vonoConfig?: Partial<VonosanConfig>): Plugin {
           build: {
             rollupOptions: {
               input: buildConfig?.ssr ? 'src/server.ts' : 'src/app.ts',
+              external: [
+                // node-cron is dynamically imported with try/catch in jobs runner
+                // Mark as external to prevent bundler resolution failures
+                'node-cron',
+              ],
             },
+          },
+          // Externalize server-only packages for SSR builds
+          ssr: {
+            external: ['node-cron'],
           },
         }
       }

@@ -18,3 +18,10 @@ export { useSeo } from './composables/useSeo.js'
 export { useRouteRules } from './composables/useRouteRules.js'
 export { useFormErrors } from './composables/useFormErrors.js'
 export { hydratePinia, serializePiniaState } from './pinia-hydration.js'
+
+// Layouts
+export { resolveLayout } from './layouts/index.js'
+export type { LayoutName } from './layouts/index.js'
+
+// Nuxt UI setup
+export { setupNuxtUI } from './nuxt-ui/index.js'

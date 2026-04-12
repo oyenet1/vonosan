@@ -1,6 +1,6 @@
 {
   "name": "@vonosan/drizzle",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "type": "module",
   "description": "Vono Drizzle ORM integration — mixins, soft deletes, scopes, seed helpers",
   "repository": {
@@ -39,6 +39,6 @@
     "@types/node": "25.5.2",
     "drizzle-orm": "0.44.5",
     "typescript": "5.8.3",
-    "vonosan": "0.2.2"
+    "vonosan": "0.2.5"
   }
 }
